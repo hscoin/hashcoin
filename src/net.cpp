@@ -1192,8 +1192,8 @@ void MapPort(bool)
 // The first name is used as information source for addrman.
 // The second name should resolve to a list of seed addresses.
 static const char *strMainNetDNSSeed[][2] = {
-    {"litecointools.com", "dnsseed.litecointools.com"},
-    {"litecoinpool.org", "dnsseed.litecoinpool.org"},
+    {"euro-hash.eu", "dnsseed1.euro-hash.eu"},
+    {"euro-hash.eu", "dnsseed2.euro-hash.eu"},
     {NULL, NULL}
 };
 
