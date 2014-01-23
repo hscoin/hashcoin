@@ -5,23 +5,23 @@ http://www.euro-hash.eu
 
 Copyright (c) 2009-2013 Bitcoin Developers
 Copyright (c) 2011-2013 Hashcoin Developers
-Copyright (c) 2013-2013 Hashcoin Developers
+Copyright (c) 2013-2014 HSC Developers
 
 
-What is Hashcoin
-----------------
+What is HSC
+-----------
 
-Hashcoin is a version of Hashcoin using scrypt as a proof-of-work algorithm.
+HSC is a EU version of Litecoin using scrypt as a proof-of-work algorithm.
  - 2.5 minute block targets
  - subsidy halves in 840k blocks (~4 years)
  - ~84 million total coins
-
-The rest is the same as Hashcoin.
  - 50 coins per block
  - 2016 blocks to retarget difficulty
 
+RCP 9392 PORT 9393
+
 For more information, as well as an immediately useable, binary version of
-the Hashcoin client sofware, see http://www.euro-hash.eu.
+the HSC client sofware, see http://www.euro-hash.eu.
 
 License
 -------
@@ -70,7 +70,7 @@ Unit tests for the core code are in `src/test/`. To compile and run them:
 
 Unit tests for the GUI code are in `src/qt/test/`. To compile and run them:
 
-    qmake BITCOIN_QT_TEST=1 -o Makefile.test hashcoin-qt.pro
+    qmake BITCOIN_QT_TEST=1 -o Makefile.test hscoin-qt.pro
     make -f Makefile.test
-    ./hashcoin-qt_test
+    ./hscoin-qt_test
 
