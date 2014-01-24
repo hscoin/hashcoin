@@ -4,13 +4,13 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Hashcoin</source>
-        <translation>&amp;О Hashcoin</translation>
+        <source>About hscoin</source>
+        <translation>&amp;О hscoin</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Hashcoin&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;Hashcoin&lt;/b&gt; версия</translation>
+        <source>&lt;b&gt;hscoin&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;hscoin&lt;/b&gt; версия</translation>
     </message>
     <message>
         <location line="+57"/>
@@ -34,8 +34,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+0"/>
-        <source>The Hashcoin developers</source>
-        <translation>Разработчики Hashcoin</translation>
+        <source>The hscoin developers</source>
+        <translation>Разработчики hscoin</translation>
     </message>
 </context>
 <context>
@@ -67,7 +67,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+63"/>
-        <source>These are your Hashcoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <source>These are your hscoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
         <translation>Это Ваши адреса для получения платежей. Вы можете дать разные адреса отправителям, чтобы отслеживать, кто именно вам платит.</translation>
     </message>
     <message>
@@ -82,8 +82,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a Hashcoin address</source>
-        <translation>Подписать сообщение, чтобы доказать владение адресом Hashcoin</translation>
+        <source>Sign a message to prove you own a hscoin address</source>
+        <translation>Подписать сообщение, чтобы доказать владение адресом hscoin</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -107,8 +107,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-44"/>
-        <source>Verify a message to ensure it was signed with a specified Hashcoin address</source>
-        <translation>Проверить сообщение, чтобы убедиться, что оно было подписано указанным адресом Hashcoin</translation>
+        <source>Verify a message to ensure it was signed with a specified hscoin address</source>
+        <translation>Проверить сообщение, чтобы убедиться, что оно было подписано указанным адресом hscoin</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -122,7 +122,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="-5"/>
-        <source>These are your Hashcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your hscoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation>Ваши адреса для получения средств. Совет: проверьте сумму и адрес назначения перед переводом.</translation>
     </message>
     <message>
@@ -275,8 +275,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-56"/>
-        <source>Hashcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your hashcoins from being stolen by malware infecting your computer.</source>
-        <translation>Сейчас программа закроется для завершения процесса шифрования. Помните, что шифрование вашего бумажника не может полностью защитить ваши Hashcoin от кражи с помощью инфицирования вашего компьютера вредоносным ПО.</translation>
+        <source>hscoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your hscoins from being stolen by malware infecting your computer.</source>
+        <translation>Сейчас программа закроется для завершения процесса шифрования. Помните, что шифрование вашего бумажника не может полностью защитить ваши hscoin от кражи с помощью инфицирования вашего компьютера вредоносным ПО.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -374,8 +374,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+4"/>
-        <source>Show information about Hashcoin</source>
-        <translation>Показать информацию о Hashcoin&apos;е</translation>
+        <source>Show information about hscoin</source>
+        <translation>Показать информацию о hscoin&apos;е</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -419,13 +419,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-347"/>
-        <source>Send coins to a Hashcoin address</source>
-        <translation>Отправить монеты на указанный адрес Hashcoin</translation>
+        <source>Send coins to a hscoin address</source>
+        <translation>Отправить монеты на указанный адрес hscoin</translation>
     </message>
     <message>
         <location line="+49"/>
-        <source>Modify configuration options for Hashcoin</source>
-        <translation>Изменить параметры конфигурации Hashcoin</translation>
+        <source>Modify configuration options for hscoin</source>
+        <translation>Изменить параметры конфигурации hscoin</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -455,8 +455,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-165"/>
         <location line="+530"/>
-        <source>Hashcoin</source>
-        <translation>Hashcoin</translation>
+        <source>hscoin</source>
+        <translation>hscoin</translation>
     </message>
     <message>
         <location line="-530"/>
@@ -480,8 +480,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+22"/>
-        <source>&amp;About Hashcoin</source>
-        <translation>&amp;О Hashcoin</translation>
+        <source>&amp;About hscoin</source>
+        <translation>&amp;О hscoin</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -500,13 +500,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+7"/>
-        <source>Sign messages with your Hashcoin addresses to prove you own them</source>
-        <translation>Подписать сообщения вашим адресом Hashcoin, чтобы доказать, что вы им владеете</translation>
+        <source>Sign messages with your hscoin addresses to prove you own them</source>
+        <translation>Подписать сообщения вашим адресом hscoin, чтобы доказать, что вы им владеете</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Verify messages to ensure they were signed with specified Hashcoin addresses</source>
-        <translation>Проверить сообщения, чтобы удостовериться, что они были подписаны определённым адресом Hashcoin</translation>
+        <source>Verify messages to ensure they were signed with specified hscoin addresses</source>
+        <translation>Проверить сообщения, чтобы удостовериться, что они были подписаны определённым адресом hscoin</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -536,12 +536,12 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+47"/>
-        <source>Hashcoin client</source>
-        <translation>Hashcoin клиент</translation>
+        <source>hscoin client</source>
+        <translation>hscoin клиент</translation>
     </message>
     <message numerus="yes">
         <location line="+141"/>
-        <source>%n active connection(s) to Hashcoin network</source>
+        <source>%n active connection(s) to hscoin network</source>
         <translation><numerusform>%n активное соединение с сетью</numerusform><numerusform>%n активных соединений с сетью</numerusform><numerusform>%n активных соединений с сетью</numerusform></translation>
     </message>
     <message>
@@ -656,8 +656,8 @@ Address: %4
     <message>
         <location line="-23"/>
         <location line="+23"/>
-        <source>URI can not be parsed! This can be caused by an invalid Hashcoin address or malformed URI parameters.</source>
-        <translation>Не удалось обработать URI! Это может быть связано с неверным адресом Hashcoin или неправильными параметрами URI.</translation>
+        <source>URI can not be parsed! This can be caused by an invalid hscoin address or malformed URI parameters.</source>
+        <translation>Не удалось обработать URI! Это может быть связано с неверным адресом hscoin или неправильными параметрами URI.</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -671,8 +671,8 @@ Address: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+111"/>
-        <source>A fatal error occurred. Hashcoin can no longer continue safely and will quit.</source>
-        <translation>Произошла неисправимая ошибка. Hashcoin не может безопасно продолжать работу и будет закрыт.</translation>
+        <source>A fatal error occurred. hscoin can no longer continue safely and will quit.</source>
+        <translation>Произошла неисправимая ошибка. hscoin не может безопасно продолжать работу и будет закрыт.</translation>
     </message>
 </context>
 <context>
@@ -737,8 +737,8 @@ Address: %4
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Hashcoin address.</source>
-        <translation>Введённый адрес &quot;%1&quot; не является правильным Hashcoin-адресом.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid hscoin address.</source>
+        <translation>Введённый адрес &quot;%1&quot; не является правильным hscoin-адресом.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -756,8 +756,8 @@ Address: %4
     <message>
         <location filename="../guiutil.cpp" line="+424"/>
         <location line="+12"/>
-        <source>Hashcoin-Qt</source>
-        <translation>Hashcoin-Qt</translation>
+        <source>hscoin-Qt</source>
+        <translation>hscoin-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -819,13 +819,13 @@ Address: %4
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start Hashcoin after logging in to the system.</source>
-        <translation>Автоматически запускать Hashcoin после входа в систему</translation>
+        <source>Automatically start hscoin after logging in to the system.</source>
+        <translation>Автоматически запускать hscoin после входа в систему</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Hashcoin on system login</source>
-        <translation>&amp;Запускать Hashcoin при входе в систему</translation>
+        <source>&amp;Start hscoin on system login</source>
+        <translation>&amp;Запускать hscoin при входе в систему</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -844,8 +844,8 @@ Address: %4
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the Hashcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Автоматически открыть порт для Hashcoin-клиента на роутере. Работает только если Ваш роутер поддерживает UPnP, и данная функция включена.</translation>
+        <source>Automatically open the hscoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Автоматически открыть порт для hscoin-клиента на роутере. Работает только если Ваш роутер поддерживает UPnP, и данная функция включена.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -854,8 +854,8 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the Hashcoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>Подключаться к сети Hashcoin через прокси SOCKS (например, при подключении через Tor).</translation>
+        <source>Connect to the hscoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>Подключаться к сети hscoin через прокси SOCKS (например, при подключении через Tor).</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -929,8 +929,8 @@ Address: %4
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Hashcoin.</source>
-        <translation>Здесь можно выбрать язык интерфейса. Настройки вступят в силу после перезапуска Hashcoin.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting hscoin.</source>
+        <translation>Здесь можно выбрать язык интерфейса. Настройки вступят в силу после перезапуска hscoin.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -944,8 +944,8 @@ Address: %4
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Hashcoin addresses in the transaction list or not.</source>
-        <translation>Показывать ли адреса Hashcoin в списке транзакций.</translation>
+        <source>Whether to show hscoin addresses in the transaction list or not.</source>
+        <translation>Показывать ли адреса hscoin в списке транзакций.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -996,8 +996,8 @@ Address: %4
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting Hashcoin.</source>
-        <translation>Эта настройка вступит в силу после перезапуска Hashcoin</translation>
+        <source>This setting will take effect after restarting hscoin.</source>
+        <translation>Эта настройка вступит в силу после перезапуска hscoin</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1015,8 +1015,8 @@ Address: %4
     <message>
         <location line="+50"/>
         <location line="+166"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Hashcoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>Отображаемая информация может быть устаревшей. Ваш бумажник автоматически синхронизируется с сетью Hashcoin после подключения, но этот процесс пока не завершён.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the hscoin network after a connection is established, but this process has not completed yet.</source>
+        <translation>Отображаемая информация может быть устаревшей. Ваш бумажник автоматически синхронизируется с сетью hscoin после подключения, но этот процесс пока не завершён.</translation>
     </message>
     <message>
         <location line="-124"/>
@@ -1069,8 +1069,8 @@ Address: %4
     <name>PaymentServer</name>
     <message>
         <location filename="../paymentserver.cpp" line="+107"/>
-        <source>Cannot start hashcoin: click-to-pay handler</source>
-        <translation>Не удаётся запустить hashcoin: обработчик click-to-pay</translation>
+        <source>Cannot start hscoin: click-to-pay handler</source>
+        <translation>Не удаётся запустить hscoin: обработчик click-to-pay</translation>
     </message>
 </context>
 <context>
@@ -1219,8 +1219,8 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Hashcoin-Qt help message to get a list with possible Hashcoin command-line options.</source>
-        <translation>Показать помощь по Hashcoin-Qt, чтобы получить список доступных параметров командной строки.</translation>
+        <source>Show the hscoin-Qt help message to get a list with possible hscoin command-line options.</source>
+        <translation>Показать помощь по hscoin-Qt, чтобы получить список доступных параметров командной строки.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1239,13 +1239,13 @@ Address: %4
     </message>
     <message>
         <location line="-104"/>
-        <source>Hashcoin - Debug window</source>
-        <translation>Hashcoin - Окно отладки</translation>
+        <source>hscoin - Debug window</source>
+        <translation>hscoin - Окно отладки</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>Hashcoin Core</source>
-        <translation>Ядро Hashcoin</translation>
+        <source>hscoin Core</source>
+        <translation>Ядро hscoin</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1254,8 +1254,8 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Hashcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Открыть отладочный лог-файл Hashcoin из текущего каталога данных. Это может занять несколько секунд для больших лог-файлов.</translation>
+        <source>Open the hscoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Открыть отладочный лог-файл hscoin из текущего каталога данных. Это может занять несколько секунд для больших лог-файлов.</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -1264,8 +1264,8 @@ Address: %4
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-30"/>
-        <source>Welcome to the Hashcoin RPC console.</source>
-        <translation>Добро пожаловать в RPC-консоль Hashcoin.</translation>
+        <source>Welcome to the hscoin RPC console.</source>
+        <translation>Добро пожаловать в RPC-консоль hscoin.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1448,8 +1448,8 @@ Address: %4
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Hashcoin address (e.g. Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>Введите Hashcoin-адрес (например 1LA5FtQhnnWnkK6zjFfutR7Stiit4wKd63)</translation>
+        <source>Enter a hscoin address (e.g. Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>Введите hscoin-адрес (например 1LA5FtQhnnWnkK6zjFfutR7Stiit4wKd63)</translation>
     </message>
 </context>
 <context>
@@ -1513,8 +1513,8 @@ Address: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Hashcoin address</source>
-        <translation>Подписать сообщение, чтобы доказать владение адресом Hashcoin</translation>
+        <source>Sign the message to prove you own this hscoin address</source>
+        <translation>Подписать сообщение, чтобы доказать владение адресом hscoin</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1549,8 +1549,8 @@ Address: %4
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified Hashcoin address</source>
-        <translation>Проверить сообщение, чтобы убедиться, что оно было подписано указанным адресом Hashcoin</translation>
+        <source>Verify the message to ensure it was signed with the specified hscoin address</source>
+        <translation>Проверить сообщение, чтобы убедиться, что оно было подписано указанным адресом hscoin</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1565,8 +1565,8 @@ Address: %4
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Hashcoin address (e.g. Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>Введите адрес Hashcoin (напр. Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>Enter a hscoin address (e.g. Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>Введите адрес hscoin (напр. Ler4HNAEfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -1575,8 +1575,8 @@ Address: %4
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter Hashcoin signature</source>
-        <translation>Введите подпись Hashcoin</translation>
+        <source>Enter hscoin signature</source>
+        <translation>Введите подпись hscoin</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -1649,8 +1649,8 @@ Address: %4
     <name>SplashScreen</name>
     <message>
         <location filename="../splashscreen.cpp" line="+22"/>
-        <source>The Hashcoin developers</source>
-        <translation>Разработчики Hashcoin</translation>
+        <source>The hscoin developers</source>
+        <translation>Разработчики hscoin</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2187,7 +2187,7 @@ Address: %4
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+94"/>
-        <source>Hashcoin version</source>
+        <source>hscoin version</source>
         <translation>Версия</translation>
     </message>
     <message>
@@ -2197,8 +2197,8 @@ Address: %4
     </message>
     <message>
         <location line="-29"/>
-        <source>Send command to -server or hashcoind</source>
-        <translation>Отправить команду на -server или hashcoind</translation>
+        <source>Send command to -server or hscoind</source>
+        <translation>Отправить команду на -server или hscoind</translation>
     </message>
     <message>
         <location line="-23"/>
@@ -2218,13 +2218,13 @@ Address: %4
     </message>
     <message>
         <location line="+24"/>
-        <source>Specify configuration file (default: hashcoin.conf)</source>
-        <translation>Указать конфигурационный файл (по умолчанию: hashcoin.conf)</translation>
+        <source>Specify configuration file (default: hscoin.conf)</source>
+        <translation>Указать конфигурационный файл (по умолчанию: hscoin.conf)</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Specify pid file (default: hashcoind.pid)</source>
-        <translation>Задать pid-файл (по умолчанию: hashcoin.pid)</translation>
+        <source>Specify pid file (default: hscoind.pid)</source>
+        <translation>Задать pid-файл (по умолчанию: hscoin.pid)</translation>
     </message>
     <message>
         <location line="-1"/>
@@ -2301,24 +2301,24 @@ Address: %4
         <source>%s, you must set a rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=hashcoinrpc
+rpcuser=hscoinrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Hashcoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;hscoin Alert&quot; admin@foo.com
 </source>
         <translation>%s, вы должны установить опцию rpcpassword в конфигурационном файле:
  %s
 Рекомендуется использовать следующий случайный пароль:
-rpcuser=hashcoinrpc
+rpcuser=hscoinrpc
 rpcpassword=%s
 (вам не нужно запоминать этот пароль)
 Имя и пароль ДОЛЖНЫ различаться.
 Если файл не существует, создайте его и установите права доступа только для владельца, только для чтения.
 Также рекомендуется включить alertnotify для оповещения о проблемах;
-Например: alertnotify=echo %%s | mail -s &quot;Hashcoin Alert&quot; admin@foo.com
+Например: alertnotify=echo %%s | mail -s &quot;hscoin Alert&quot; admin@foo.com
 </translation>
     </message>
     <message>
@@ -2333,8 +2333,8 @@ rpcpassword=%s
     </message>
     <message>
         <location line="+3"/>
-        <source>Cannot obtain a lock on data directory %s. Hashcoin is probably already running.</source>
-        <translation>Не удаётся установить блокировку на каталог данных %s.  Возможно, Hashcoin уже работает.</translation>
+        <source>Cannot obtain a lock on data directory %s. hscoin is probably already running.</source>
+        <translation>Не удаётся установить блокировку на каталог данных %s.  Возможно, hscoin уже работает.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2378,8 +2378,8 @@ rpcpassword=%s
     </message>
     <message>
         <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Hashcoin will not work properly.</source>
-        <translation>Внимание: убедитесь, что дата и время на Вашем компьютере выставлены верно. Если Ваши часы идут неправильно, Hashcoin будет работать некорректно.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong hscoin will not work properly.</source>
+        <translation>Внимание: убедитесь, что дата и время на Вашем компьютере выставлены верно. Если Ваши часы идут неправильно, hscoin будет работать некорректно.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2628,9 +2628,9 @@ rpcpassword=%s
     </message>
     <message>
         <location line="+5"/>
-        <source>SSL options: (see the Hashcoin Wiki for SSL setup instructions)</source>
+        <source>SSL options: (see the hscoin Wiki for SSL setup instructions)</source>
         <translation>
-Параметры SSL: (см. Hashcoin Wiki для инструкций по настройке SSL)</translation>
+Параметры SSL: (см. hscoin Wiki для инструкций по настройке SSL)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2819,13 +2819,13 @@ rpcpassword=%s
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Hashcoin</source>
-        <translation>Ошибка загрузки wallet.dat: бумажник требует более новую версию Hashcoin</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of hscoin</source>
+        <translation>Ошибка загрузки wallet.dat: бумажник требует более новую версию hscoin</translation>
     </message>
     <message>
         <location line="+93"/>
-        <source>Wallet needed to be rewritten: restart Hashcoin to complete</source>
-        <translation>Необходимо перезаписать бумажник, перезапустите Hashcoin для завершения операции.</translation>
+        <source>Wallet needed to be rewritten: restart hscoin to complete</source>
+        <translation>Необходимо перезаписать бумажник, перезапустите hscoin для завершения операции.</translation>
     </message>
     <message>
         <location line="-95"/>
@@ -2884,8 +2884,8 @@ rpcpassword=%s
     </message>
     <message>
         <location line="-25"/>
-        <source>Unable to bind to %s on this computer. Hashcoin is probably already running.</source>
-        <translation>Невозможно привязаться к %s на этом компьютере.  Возможно, Hashcoin уже работает.</translation>
+        <source>Unable to bind to %s on this computer. hscoin is probably already running.</source>
+        <translation>Невозможно привязаться к %s на этом компьютере.  Возможно, hscoin уже работает.</translation>
     </message>
     <message>
         <location line="+64"/>

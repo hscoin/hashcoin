@@ -1,9 +1,9 @@
-Building Hashcoin
+Building hscoin
 
-See doc/readme-qt.rst for instructions on building Hashcoin-Qt,
+See doc/readme-qt.rst for instructions on building hscoin-Qt,
 the intended-for-end-users, nice-graphical-interface, reference
-implementation of Hashcoin.
+implementation of hscoin.
 
-See doc/build-*.txt for instructions on building hashcoind,
+See doc/build-*.txt for instructions on building hscoind,
 the intended-for-services, no-graphical-interface, reference
-implementation of Hashcoin.
+implementation of hscoin.

@@ -6,7 +6,7 @@ Release Process
 ###update (commit) version in sources
 
 
-	hashcoin-qt.pro
+	hscoin-qt.pro
 	contrib/verifysfbinaries/verify.sh
 	doc/README*
 	share/setup.nsi
@@ -24,7 +24,7 @@ Release Process
 
 ##perform gitian builds
 
- From a directory containing the hashcoin source, gitian-builder and gitian.sigs
+ From a directory containing the hscoin source, gitian-builder and gitian.sigs
   
 	export SIGNER=(your gitian key, ie bluematt, sipa, etc)
 	export VERSION=0.8.0
@@ -42,54 +42,54 @@ Release Process
 	wget 'http://downloads.sourceforge.net/project/boost/boost/1.50.0/boost_1_50_0.tar.bz2'
 	wget 'http://releases.qt-project.org/qt4/source/qt-everywhere-opensource-src-4.8.3.tar.gz'
 	cd ..
-	./bin/gbuild ../hashcoin/contrib/gitian-descriptors/boost-win32.yml
+	./bin/gbuild ../hscoin/contrib/gitian-descriptors/boost-win32.yml
 	mv build/out/boost-win32-1.50.0-gitian2.zip inputs/
-	./bin/gbuild ../hashcoin/contrib/gitian-descriptors/qt-win32.yml
+	./bin/gbuild ../hscoin/contrib/gitian-descriptors/qt-win32.yml
 	mv build/out/qt-win32-4.8.3-gitian-r1.zip inputs/
-	./bin/gbuild ../hashcoin/contrib/gitian-descriptors/deps-win32.yml
-	mv build/out/hashcoin-deps-0.0.5.zip inputs/
+	./bin/gbuild ../hscoin/contrib/gitian-descriptors/deps-win32.yml
+	mv build/out/hscoin-deps-0.0.5.zip inputs/
 
- Build hashcoind and hashcoin-qt on Linux32, Linux64, and Win32:
+ Build hscoind and hscoin-qt on Linux32, Linux64, and Win32:
   
-	./bin/gbuild --commit hashcoin=v${VERSION} ../hashcoin/contrib/gitian-descriptors/gitian.yml
-	./bin/gsign --signer $SIGNER --release ${VERSION} --destination ../gitian.sigs/ ../hashcoin/contrib/gitian-descriptors/gitian.yml
+	./bin/gbuild --commit hscoin=v${VERSION} ../hscoin/contrib/gitian-descriptors/gitian.yml
+	./bin/gsign --signer $SIGNER --release ${VERSION} --destination ../gitian.sigs/ ../hscoin/contrib/gitian-descriptors/gitian.yml
 	pushd build/out
-	zip -r hashcoin-${VERSION}-linux-gitian.zip *
-	mv hashcoin-${VERSION}-linux-gitian.zip ../../
+	zip -r hscoin-${VERSION}-linux-gitian.zip *
+	mv hscoin-${VERSION}-linux-gitian.zip ../../
 	popd
-	./bin/gbuild --commit hashcoin=v${VERSION} ../hashcoin/contrib/gitian-descriptors/gitian-win32.yml
-	./bin/gsign --signer $SIGNER --release ${VERSION}-win32 --destination ../gitian.sigs/ ../hashcoin/contrib/gitian-descriptors/gitian-win32.yml
+	./bin/gbuild --commit hscoin=v${VERSION} ../hscoin/contrib/gitian-descriptors/gitian-win32.yml
+	./bin/gsign --signer $SIGNER --release ${VERSION}-win32 --destination ../gitian.sigs/ ../hscoin/contrib/gitian-descriptors/gitian-win32.yml
 	pushd build/out
-	zip -r hashcoin-${VERSION}-win32-gitian.zip *
-	mv hashcoin-${VERSION}-win32-gitian.zip ../../
+	zip -r hscoin-${VERSION}-win32-gitian.zip *
+	mv hscoin-${VERSION}-win32-gitian.zip ../../
 	popd
 
   Build output expected:
 
-  1. linux 32-bit and 64-bit binaries + source (hashcoin-${VERSION}-linux-gitian.zip)
-  2. windows 32-bit binary, installer + source (hashcoin-${VERSION}-win32-gitian.zip)
+  1. linux 32-bit and 64-bit binaries + source (hscoin-${VERSION}-linux-gitian.zip)
+  2. windows 32-bit binary, installer + source (hscoin-${VERSION}-win32-gitian.zip)
   3. Gitian signatures (in gitian.sigs/${VERSION}[-win32]/(your gitian key)/
 
 repackage gitian builds for release as stand-alone zip/tar/installer exe
 
 **Linux .tar.gz:**
 
-	unzip hashcoin-${VERSION}-linux-gitian.zip -d hashcoin-${VERSION}-linux
-	tar czvf hashcoin-${VERSION}-linux.tar.gz hashcoin-${VERSION}-linux
-	rm -rf hashcoin-${VERSION}-linux
+	unzip hscoin-${VERSION}-linux-gitian.zip -d hscoin-${VERSION}-linux
+	tar czvf hscoin-${VERSION}-linux.tar.gz hscoin-${VERSION}-linux
+	rm -rf hscoin-${VERSION}-linux
 
 **Windows .zip and setup.exe:**
 
-	unzip hashcoin-${VERSION}-win32-gitian.zip -d hashcoin-${VERSION}-win32
-	mv hashcoin-${VERSION}-win32/hashcoin-*-setup.exe .
-	zip -r hashcoin-${VERSION}-win32.zip bitcoin-${VERSION}-win32
-	rm -rf hashcoin-${VERSION}-win32
+	unzip hscoin-${VERSION}-win32-gitian.zip -d hscoin-${VERSION}-win32
+	mv hscoin-${VERSION}-win32/hscoin-*-setup.exe .
+	zip -r hscoin-${VERSION}-win32.zip bitcoin-${VERSION}-win32
+	rm -rf hscoin-${VERSION}-win32
 
 **Perform Mac build:**
 
   OSX binaries are created by Gavin Andresen on a 32-bit, OSX 10.6 machine.
 
-	qmake RELEASE=1 USE_UPNP=1 USE_QRCODE=1 hashcoin-qt.pro
+	qmake RELEASE=1 USE_UPNP=1 USE_QRCODE=1 hscoin-qt.pro
 	make
 	export QTDIR=/opt/local/share/qt4  # needed to find translations/qt_*.qm files
 	T=$(contrib/qt_translations.py $QTDIR/translations src/qt/locale)
@@ -107,14 +107,14 @@ repackage gitian builds for release as stand-alone zip/tar/installer exe
 
 * create SHA256SUMS for builds, and PGP-sign it
 
-* update hashcoin.org version
+* update hscoin.org version
   make sure all OS download links go to the right versions
 
 * update forum version
 
 * update wiki download links
 
-* update wiki changelog: [https://en.hashcoin.it/wiki/Changelog](https://en.bitcoin.it/wiki/Changelog)
+* update wiki changelog: [https://en.hscoin.it/wiki/Changelog](https://en.bitcoin.it/wiki/Changelog)
 
 Commit your signature to gitian.sigs:
 
@@ -129,32 +129,32 @@ Commit your signature to gitian.sigs:
 
 ### After 3 or more people have gitian-built, repackage gitian-signed zips:
 
-From a directory containing hashcoin source, gitian.sigs and gitian zips
+From a directory containing hscoin source, gitian.sigs and gitian zips
 
 	export VERSION=0.5.1
-	mkdir hashcoin-${VERSION}-linux-gitian
-	pushd hashcoin-${VERSION}-linux-gitian
-	unzip ../hashcoin-${VERSION}-linux-gitian.zip
+	mkdir hscoin-${VERSION}-linux-gitian
+	pushd hscoin-${VERSION}-linux-gitian
+	unzip ../hscoin-${VERSION}-linux-gitian.zip
 	mkdir gitian
-	cp ../hashcoin/contrib/gitian-downloader/*.pgp ./gitian/
+	cp ../hscoin/contrib/gitian-downloader/*.pgp ./gitian/
 	for signer in $(ls ../gitian.sigs/${VERSION}/); do
-	 cp ../gitian.sigs/${VERSION}/${signer}/hashcoin-build.assert ./gitian/${signer}-build.assert
-	 cp ../gitian.sigs/${VERSION}/${signer}/hashcoin-build.assert.sig ./gitian/${signer}-build.assert.sig
+	 cp ../gitian.sigs/${VERSION}/${signer}/hscoin-build.assert ./gitian/${signer}-build.assert
+	 cp ../gitian.sigs/${VERSION}/${signer}/hscoin-build.assert.sig ./gitian/${signer}-build.assert.sig
 	done
-	zip -r hashcoin-${VERSION}-linux-gitian.zip *
-	cp hashcoin-${VERSION}-linux-gitian.zip ../
+	zip -r hscoin-${VERSION}-linux-gitian.zip *
+	cp hscoin-${VERSION}-linux-gitian.zip ../
 	popd
-	mkdir hashcoin-${VERSION}-win32-gitian
-	pushd hashcoin-${VERSION}-win32-gitian
-	unzip ../hashcoin-${VERSION}-win32-gitian.zip
+	mkdir hscoin-${VERSION}-win32-gitian
+	pushd hscoin-${VERSION}-win32-gitian
+	unzip ../hscoin-${VERSION}-win32-gitian.zip
 	mkdir gitian
-	cp ../hashcoin/contrib/gitian-downloader/*.pgp ./gitian/
+	cp ../hscoin/contrib/gitian-downloader/*.pgp ./gitian/
 	for signer in $(ls ../gitian.sigs/${VERSION}-win32/); do
-	 cp ../gitian.sigs/${VERSION}-win32/${signer}/hashcoin-build.assert ./gitian/${signer}-build.assert
-	 cp ../gitian.sigs/${VERSION}-win32/${signer}/hashcoin-build.assert.sig ./gitian/${signer}-build.assert.sig
+	 cp ../gitian.sigs/${VERSION}-win32/${signer}/hscoin-build.assert ./gitian/${signer}-build.assert
+	 cp ../gitian.sigs/${VERSION}-win32/${signer}/hscoin-build.assert.sig ./gitian/${signer}-build.assert.sig
 	done
-	zip -r hashcoin-${VERSION}-win32-gitian.zip *
-	cp hashcoin-${VERSION}-win32-gitian.zip ../
+	zip -r hscoin-${VERSION}-win32-gitian.zip *
+	cp hscoin-${VERSION}-win32-gitian.zip ../
 	popd
 
 - Upload gitian zips to SourceForge
