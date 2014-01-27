@@ -7,7 +7,7 @@ handle those translations.
 Files and Folders
 -----------------
 
-### hscoin-qt.pro
+### bitcoin-qt.pro
 
 This file takes care of generating `.qm` files from `.ts` files. It is mostly
 automated.
