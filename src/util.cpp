@@ -1,7 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2012 The Bitcoin developers
 // Copyright (c) 2011-2012 Litecoin Developers
-// Copyright (c) 2013 HSCoin Developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -467,7 +466,7 @@ vector<unsigned char> ParseHex(const string& str)
 
 static void InterpretNegativeSetting(string name, map<string, string>& mapSettingsRet)
 {
-    // interpret -nofoo as -foo=0 (and -nofoo=0 as -foo=1) as long as -foo not set
+    // interpret -noBAR as -BAR=0 (and -noBAR=0 as -BAR=1) as long as -BAR not set
     if (name.find("-no") == 0)
     {
         std::string positive("-");
@@ -511,7 +510,7 @@ void ParseParameters(int argc, const char* const argv[])
     {
         string name = entry.first;
 
-        //  interpret --foo as -foo (as long as both are not set)
+        //  interpret --BAR as -BAR (as long as both are not set)
         if (name.find("--") == 0)
         {
             std::string singleDash(name.begin()+1, name.end());
@@ -520,7 +519,7 @@ void ParseParameters(int argc, const char* const argv[])
             name = singleDash;
         }
 
-        // interpret -nofoo as -foo=0 (and -nofoo=0 as -foo=1) as long as -foo not set
+        // interpret -noBAR as -BAR=0 (and -noBAR=0 as -BAR=1) as long as -BAR not set
         InterpretNegativeSetting(name, mapArgs);
     }
 }
@@ -937,7 +936,7 @@ static std::string FormatException(std::exception* pex, const char* pszThread)
     char pszModule[MAX_PATH] = "";
     GetModuleFileNameA(NULL, pszModule, sizeof(pszModule));
 #else
-    const char* pszModule = "hscoin";
+    const char* pszModule = "HSCoin";
 #endif
     if (pex)
         return strprintf(
@@ -976,7 +975,7 @@ boost::filesystem::path GetDefaultDataDir()
     // Windows < Vista: C:\Documents and Settings\Username\Application Data\HSCoin
     // Windows >= Vista: C:\Users\Username\AppData\Roaming\HSCoin
     // Mac: ~/Library/Application Support/HSCoin
-    // Unix: ~/.hscoin
+    // Unix: ~/.HSCoin
 #ifdef WIN32
     // Windows
     return GetSpecialFolderPath(CSIDL_APPDATA) / "HSCoin";
@@ -994,7 +993,7 @@ boost::filesystem::path GetDefaultDataDir()
     return pathRet / "HSCoin";
 #else
     // Unix
-    return pathRet / ".hscoin";
+    return pathRet / ".HSCoin";
 #endif
 #endif
 }
@@ -1036,7 +1035,7 @@ const boost::filesystem::path &GetDataDir(bool fNetSpecific)
 
 boost::filesystem::path GetConfigFile()
 {
-    boost::filesystem::path pathConfigFile(GetArg("-conf", "hscoin.conf"));
+    boost::filesystem::path pathConfigFile(GetArg("-conf", "HSCoin.conf"));
     if (!pathConfigFile.is_complete()) pathConfigFile = GetDataDir(false) / pathConfigFile;
     return pathConfigFile;
 }
@@ -1053,12 +1052,12 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
 
     for (boost::program_options::detail::config_file_iterator it(streamConfig, setOptions), end; it != end; ++it)
     {
-        // Don't overwrite existing settings so command line settings override hscoin.conf
+        // Don't overwrite existing settings so command line settings override HSCoin.conf
         string strKey = string("-") + it->string_key;
         if (mapSettingsRet.count(strKey) == 0)
         {
             mapSettingsRet[strKey] = it->value[0];
-            // interpret nofoo=1 as foo=0 (and nofoo=0 as foo=1) as long as foo not set)
+            // interpret noBAR=1 as BAR=0 (and noBAR=0 as BAR=1) as long as BAR not set)
             InterpretNegativeSetting(strKey, mapSettingsRet);
         }
         mapMultiSettingsRet[strKey].push_back(it->value[0]);
@@ -1067,7 +1066,7 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
 
 boost::filesystem::path GetPidFile()
 {
-    boost::filesystem::path pathPidFile(GetArg("-pid", "hscoind.pid"));
+    boost::filesystem::path pathPidFile(GetArg("-pid", "HSCoin.pid"));
     if (!pathPidFile.is_complete()) pathPidFile = GetDataDir() / pathPidFile;
     return pathPidFile;
 }
@@ -1187,7 +1186,7 @@ void AddTimeData(const CNetAddr& ip, int64 nTime)
         int64 nMedian = vTimeOffsets.median();
         std::vector<int64> vSorted = vTimeOffsets.sorted();
         // Only let other nodes change our time by so much
-        if (abs64(nMedian) < 35 * 60) // HSCoin: changed maximum adjust to 35 mins to avoid letting peers change our time too much in case of an attack.
+        if (abs64(nMedian) < 35 * 60) // changed maximum adjust to 35 mins to avoid letting peers change our time too much in case of an attack.
         {
             nTimeOffset = nMedian;
         }
@@ -1224,48 +1223,9 @@ void AddTimeData(const CNetAddr& ip, int64 nTime)
 }
 
 
-static const long hextable[] = 
-{
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,		// 10-19
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,		// 30-39
-	-1, -1, -1, -1, -1, -1, -1, -1,  0,  1,
-	 2,  3,  4,  5,  6,  7,  8,  9, -1, -1,		// 50-59
-	-1, -1, -1, -1, -1, 10, 11, 12, 13, 14,
-	15, -1, -1, -1, -1, -1, -1, -1, -1, -1,		// 70-79
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-	-1, -1, -1, -1, -1, -1, -1, 10, 11, 12,		// 90-99
-	13, 14, 15, -1, -1, -1, -1, -1, -1, -1,
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,		// 110-109
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,		// 130-139
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,		// 150-159
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,		// 170-179
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,		// 190-199
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,		// 210-219
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,		// 230-239
-	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-	-1, -1, -1, -1, -1, -1
-};
 
 
-long hex2long(const char* hexString)
-{
-	long ret = 0; 
 
-	while (*hexString && ret >= 0) 
-	{
-		ret = (ret << 4) | hextable[*hexString++];
-	}
-
-	return ret; 
-}
 
 
 

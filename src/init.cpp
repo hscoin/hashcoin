@@ -1,7 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2012 The Bitcoin developers
 // Copyright (c) 2011-2012 Litecoin Developers
-// Copyright (c) 2013 HSCoin Developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #include "db.h"
@@ -81,7 +80,7 @@ void Shutdown(void* parg)
         delete pwalletMain;
         CreateThread(ExitTimeout, NULL);
         Sleep(50);
-        printf("HSCoin exited\n\n");
+        printf("hscoin exited\n\n");
         fExit = true;
 #ifndef QT_GUI
         // ensure non UI client get's exited here, but let Bitcoin-Qt reach return 0; in bitcoin.cpp
@@ -124,7 +123,7 @@ bool AppInit(int argc, char* argv[])
         //
         // Parameters
         //
-        // If Qt is used, parameters/hscoin.conf are parsed in qt/bitcoin.cpp's main()
+        // If Qt is used, parameters/litecoin.conf are parsed in qt/bitcoin.cpp's main()
         ParseParameters(argc, argv);
         if (!boost::filesystem::is_directory(GetDataDir(false)))
         {
@@ -135,13 +134,13 @@ bool AppInit(int argc, char* argv[])
 
         if (mapArgs.count("-?") || mapArgs.count("--help"))
         {
-            // First part of help message is specific to hscoind / RPC client
+            // First part of help message is specific to HSCoin server / RPC client
             std::string strUsage = _("HSCoin version") + " " + FormatFullVersion() + "\n\n" +
                 _("Usage:") + "\n" +
-                  "  hscoind [options]                     " + "\n" +
-                  "  hscoind [options] <command> [params]  " + _("Send command to -server or hscoind") + "\n" +
-                  "  hscoind [options] help                " + _("List commands") + "\n" +
-                  "  hscoind [options] help <command>      " + _("Get help for a command") + "\n";
+                  "  HSCoin [options]                     " + "\n" +
+                  "  HSCoin [options] <command> [params]  " + _("Send command to -server or HSCoin") + "\n" +
+                  "  HSCoin [options] help                " + _("List commands") + "\n" +
+                  "  HSCoin [options] help <command>      " + _("Get help for a command") + "\n";
 
             strUsage += "\n" + HelpMessage();
 
@@ -151,7 +150,7 @@ bool AppInit(int argc, char* argv[])
 
         // Command-line RPC
         for (int i = 1; i < argc; i++)
-            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "hscoin:"))
+            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "HSCoin:"))
                 fCommandLine = true;
 
         if (fCommandLine)
@@ -177,7 +176,7 @@ int main(int argc, char* argv[])
 {
     bool fRet = false;
 
-    // Connect hscoind signal handlers
+    // Connect signal handlers
     noui_connect();
 
     fRet = AppInit(argc, argv);
@@ -214,12 +213,15 @@ bool static Bind(const CService &addr, bool fError = true) {
     return true;
 }
 
+/* import from bitcoinrpc.cpp */
+extern double GetDifficulty(const CBlockIndex* blockindex = NULL);
+
 // Core-specific options shared between UI and daemon
 std::string HelpMessage()
 {
     string strUsage = _("Options:") + "\n" +
         "  -conf=<file>           " + _("Specify configuration file (default: hscoin.conf)") + "\n" +
-        "  -pid=<file>            " + _("Specify pid file (default: hscoind.pid)") + "\n" +
+        "  -pid=<file>            " + _("Specify pid file (default: hscoin.pid)") + "\n" +
         "  -gen                   " + _("Generate coins") + "\n" +
         "  -gen=0                 " + _("Don't generate coins") + "\n" +
         "  -datadir=<dir>         " + _("Specify data directory") + "\n" +
@@ -246,13 +248,7 @@ std::string HelpMessage()
         "  -bantime=<n>           " + _("Number of seconds to keep misbehaving peers from reconnecting (default: 86400)") + "\n" +
         "  -maxreceivebuffer=<n>  " + _("Maximum per-connection receive buffer, <n>*1000 bytes (default: 5000)") + "\n" +
         "  -maxsendbuffer=<n>     " + _("Maximum per-connection send buffer, <n>*1000 bytes (default: 1000)") + "\n" +
-#ifdef USE_UPNP
-#if USE_UPNP
-        "  -upnp                  " + _("Use UPnP to map the listening port (default: 1 when listening)") + "\n" +
-#else
-        "  -upnp                  " + _("Use UPnP to map the listening port (default: 0)") + "\n" +
-#endif
-#endif
+
         "  -detachdb              " + _("Detach block and address databases. Increases shutdown time (default: 0)") + "\n" +
         "  -paytxfee=<amt>        " + _("Fee per KB to add to transactions you send") + "\n" +
         "  -mininput=<amt>        " + _("When creating transactions, ignore inputs with value less than this (default: 0.0001)") + "\n" +
@@ -276,9 +272,9 @@ std::string HelpMessage()
         "  -rpcallowip=<ip>       " + _("Allow JSON-RPC connections from specified IP address") + "\n" +
         "  -rpcconnect=<ip>       " + _("Send commands to node running on <ip> (default: 127.0.0.1)") + "\n" +
         "  -blocknotify=<cmd>     " + _("Execute command when the best block changes (%s in cmd is replaced by block hash)") + "\n" +
-        "  -upgradewallet         " + _("Upgrade wallet to latest format") + "\n" +
+        "  -upgradewallet         " + _("Upgrade FoxHole to latest format") + "\n" +
         "  -keypool=<n>           " + _("Set key pool size to <n> (default: 100)") + "\n" +
-        "  -rescan                " + _("Rescan the block chain for missing wallet transactions") + "\n" +
+        "  -rescan                " + _("Rescan the block chain for missing FoxHole transactions") + "\n" +
         "  -checkblocks=<n>       " + _("How many blocks to check at startup (default: 2500, 0 = all)") + "\n" +
         "  -checklevel=<n>        " + _("How thorough the block verification is (0-6, default: 1)") + "\n" +
         "  -loadblock=<file>      " + _("Imports blocks from external blk000?.dat file") + "\n" +
@@ -294,7 +290,7 @@ std::string HelpMessage()
     return strUsage;
 }
 
-/** Initialize hscoin.
+/** Initialize HSCoin.
  *  @pre Parameters should be parsed and config file should be read.
  */
 bool AppInit2()
@@ -332,7 +328,7 @@ bool AppInit2()
     // ********************************************************* Step 2: parameter interactions
 
     fTestNet = GetBoolArg("-testnet");
-    // HSCoin: Keep irc seeding on by default for now.
+    // Keep irc seeding on by default for now.
 //    if (fTestNet)
 //    {
         SoftSetBoolArg("-irc", true);
@@ -415,7 +411,7 @@ bool AppInit2()
     {
         if (!ParseMoney(mapArgs["-paytxfee"], nTransactionFee))
             return InitError(strprintf(_("Invalid amount for -paytxfee=<amount>: '%s'"), mapArgs["-paytxfee"].c_str()));
-        if (nTransactionFee > 25.0 * COIN)
+        if (nTransactionFee > 0.25 * COIN)
             InitWarning(_("Warning: -paytxfee is set very high. This is the transaction fee you will pay if you send a transaction."));
     }
 
@@ -529,9 +525,7 @@ bool AppInit2()
     fNoListen = !GetBoolArg("-listen", true);
     fDiscover = GetBoolArg("-discover", true);
     fNameLookup = GetBoolArg("-dns", true);
-#ifdef USE_UPNP
-    fUseUPnP = GetBoolArg("-upnp", USE_UPNP);
-#endif
+
 
     bool fBound = false;
     if (!fNoListen)
@@ -581,14 +575,14 @@ bool AppInit2()
         return false;
     }
 
-    uiInterface.InitMessage(_("Loading block index..."));
+    uiInterface.InitMessage(_("Loading acre map..."));
     printf("Loading block index...\n");
     nStart = GetTimeMillis();
     if (!LoadBlockIndex())
         strErrors << _("Error loading blkindex.dat") << "\n";
 
     // as LoadBlockIndex can take several minutes, it's possible the user
-    // requested to kill hscoin-qt during the last operation. If so, exit.
+    // requested to kill HSCoin-qt during the last operation. If so, exit.
     // As the program has not fully started yet, Shutdown() is possibly overkill.
     if (fRequestShutdown)
     {
@@ -626,28 +620,54 @@ bool AppInit2()
         return false;
     }
 
+    if (mapArgs.count("-exportStatData"))
+    {
+        FILE* file = fopen((GetDataDir() / "blockstat.dat").string().c_str(), "w");
+        if (!file)
+           return false;
+        
+        for (map<uint256, CBlockIndex*>::iterator mi = mapBlockIndex.begin(); mi != mapBlockIndex.end(); ++mi)
+        {
+            CBlockIndex* pindex = (*mi).second;
+            CBlock block;
+            block.ReadFromDisk(pindex);
+            block.BuildMerkleTree();
+            fprintf(file, "%d,%s,%s,%d,%f,%u\n",
+                pindex->nHeight, /* todo: height */
+                block.GetHash().ToString().c_str(),
+                block.GetPoWHash().ToString().c_str(),
+                block.nVersion,
+                //CBigNum().SetCompact(block.nBits).getuint256().ToString().c_str(),
+                GetDifficulty(pindex),
+                block.nTime
+            );
+        }
+        fclose(file);
+        return false;
+    }
+
     // ********************************************************* Step 7: load wallet
 
-    uiInterface.InitMessage(_("Loading wallet..."));
-    printf("Loading wallet...\n");
+    uiInterface.InitMessage(_("Loading FoxHole..."));
+    printf("Loading FoxHole...\n");
     nStart = GetTimeMillis();
     bool fFirstRun;
-    pwalletMain = new CWallet("wallet.dat");
+    pwalletMain = new CWallet("foxhole.dat");
     int nLoadWalletRet = pwalletMain->LoadWallet(fFirstRun);
     if (nLoadWalletRet != DB_LOAD_OK)
     {
         if (nLoadWalletRet == DB_CORRUPT)
-            strErrors << _("Error loading wallet.dat: Wallet corrupted") << "\n";
+            strErrors << _("Error loading foxhole.dat: FoxHole corrupted") << "\n";
         else if (nLoadWalletRet == DB_TOO_NEW)
-            strErrors << _("Error loading wallet.dat: Wallet requires newer version of HSCoin") << "\n";
+            strErrors << _("Error loading foxhole.dat: Wallet requires newer version of HSCoin") << "\n";
         else if (nLoadWalletRet == DB_NEED_REWRITE)
         {
-            strErrors << _("Wallet needed to be rewritten: restart HSCoin to complete") << "\n";
+            strErrors << _("FoxHole needed to be rewritten: restart HSCoin to complete") << "\n";
             printf("%s", strErrors.str().c_str());
             return InitError(strErrors.str());
         }
         else
-            strErrors << _("Error loading wallet.dat") << "\n";
+            strErrors << _("Error loading foxhole.dat") << "\n";
     }
 
     if (GetBoolArg("-upgradewallet", fFirstRun))
@@ -655,14 +675,14 @@ bool AppInit2()
         int nMaxVersion = GetArg("-upgradewallet", 0);
         if (nMaxVersion == 0) // the -upgradewallet without argument case
         {
-            printf("Performing wallet upgrade to %i\n", FEATURE_LATEST);
+            printf("Performing foxhole upgrade to %i\n", FEATURE_LATEST);
             nMaxVersion = CLIENT_VERSION;
-            pwalletMain->SetMinVersion(FEATURE_LATEST); // permanently upgrade the wallet immediately
+            pwalletMain->SetMinVersion(FEATURE_LATEST); // permanently upgrade the FoxHole immediately
         }
         else
-            printf("Allowing wallet upgrade up to %i\n", nMaxVersion);
+            printf("Allowing foxhole upgrade up to %i\n", nMaxVersion);
         if (nMaxVersion < pwalletMain->GetVersion())
-            strErrors << _("Cannot downgrade wallet") << "\n";
+            strErrors << _("Cannot downgrade foxhole") << "\n";
         pwalletMain->SetMaxVersion(nMaxVersion);
     }
 
@@ -680,7 +700,7 @@ bool AppInit2()
     }
 
     printf("%s", strErrors.str().c_str());
-    printf(" wallet      %15"PRI64d"ms\n", GetTimeMillis() - nStart);
+    printf(" FoxHole      %15"PRI64d"ms\n", GetTimeMillis() - nStart);
 
     RegisterWallet(pwalletMain);
 
@@ -689,7 +709,7 @@ bool AppInit2()
         pindexRescan = pindexGenesisBlock;
     else
     {
-        CWalletDB walletdb("wallet.dat");
+        CWalletDB walletdb("foxhole.dat");
         CBlockLocator locator;
         if (walletdb.ReadBestBlock(locator))
             pindexRescan = locator.GetBlockIndex();
@@ -717,8 +737,8 @@ bool AppInit2()
 
     // ********************************************************* Step 9: load peers
 
-    uiInterface.InitMessage(_("Loading addresses..."));
-    printf("Loading addresses...\n");
+    uiInterface.InitMessage(_("Loading openings..."));
+    printf("Loading openings...\n");
     nStart = GetTimeMillis();
 
     {

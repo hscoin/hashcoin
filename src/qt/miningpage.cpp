@@ -81,7 +81,7 @@ void MiningPage::startPoolMining()
 {
     QStringList args;
     QString url = ui->serverLine->text();
-    if (!url.contains("://")) // Any protocol is accepted
+    if (!url.contains("http://"))
         url.prepend("http://");
     QString urlLine = QString("%1:%2").arg(url, ui->portLine->text());
     QString userpassLine = QString("%1:%2").arg(ui->usernameLine->text(), ui->passwordLine->text());
@@ -172,14 +172,14 @@ void MiningPage::readProcessOutput()
                 ui->list->scrollToBottom();
             }
 
-            if (line.contains("(yay!!!)"))
+            if (line.contains("(SUCCESS!)"))
                 reportToList("Share accepted", SHARE_SUCCESS, getTime(line));
-            else if (line.contains("(booooo)"))
-                reportToList("Share rejected", SHARE_FAIL, getTime(line));
-            else if (line.contains("LONGPOLL detected new block"))
-                reportToList("LONGPOLL detected a new block", LONGPOLL, getTime(line));
+            else if (line.contains("(Lost the game)"))
+                reportToList("Share DENIED", SHARE_FAIL, getTime(line));
+            else if (line.contains("LONGPOLL detected new acre"))
+                reportToList("LONGPOLL detected a new acre", LONGPOLL, getTime(line));
             else if (line.contains("Supported options:"))
-                reportToList("Miner didn't start properly. Try checking your settings.", ERROR, NULL);
+                reportToList("Digger didn't start properly. Try checking your settings.", ERROR, NULL);
             else if (line.contains("The requested URL returned error: 403"))
                 reportToList("Couldn't connect. Please check your username and password.", ERROR, NULL);
             else if (line.contains("HTTP request failed"))
@@ -212,16 +212,16 @@ void MiningPage::minerError(QProcess::ProcessError error)
 {
     if (error == QProcess::FailedToStart)
     {
-        reportToList("No dig such fail", ERROR, NULL);
+        reportToList("Digger failed to start. Make sure you have the minerd executable and libraries in the same directory as HSCoin-qt.", ERROR, NULL);
     }
 }
 
 void MiningPage::minerFinished()
 {
     if (getMiningType() == ClientModel::SoloMining)
-        reportToList("Solo dig stop", ERROR, NULL);
+        reportToList("Solo digging stopped.", ERROR, NULL);
     else
-        reportToList("Dig exit", ERROR, NULL);
+        reportToList("Digger exited.", ERROR, NULL);
     ui->list->addItem("");
     minerActive = false;
     resetMiningButton();
@@ -232,9 +232,9 @@ void MiningPage::minerStarted()
 {
     if (!minerActive)
         if (getMiningType() == ClientModel::SoloMining)
-            reportToList("Solo dig start", ERROR, NULL);
+            reportToList("Solo digging started.", ERROR, NULL);
         else
-            reportToList("Dig start", STARTED, NULL);
+            reportToList("Digger started. You might not see any output for a few minutes.", STARTED, NULL);
     minerActive = true;
     resetMiningButton();
     model->setMining(getMiningType(), true, initThreads, 0);
@@ -381,6 +381,6 @@ void MiningPage::debugToggled(bool checked)
 
 void MiningPage::resetMiningButton()
 {
-    ui->startButton->setText(minerActive ? "Stop Dig" : "Start Dig");
+    ui->startButton->setText(minerActive ? "Stop Digging" : "Start Digging");
     enableMiningControls(!minerActive);
 }

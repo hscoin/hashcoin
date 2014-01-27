@@ -1,7 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2012 The Bitcoin developers
 // Copyright (c) 2011-2012 Litecoin Developers
-// Copyright (c) 2013 HSCoin Developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #ifndef BITCOIN_MAIN_H
@@ -27,15 +26,23 @@ class CInv;
 class CRequestTracker;
 class CNode;
 
+// This fix should give some protection agains sudden
+// changes of the network hashrate.
+// Thanks: https://bitcointalk.org/index.php?topic=182430.msg1904506#msg1904506
+// activated: after block 15000 for all following diff retargeting events
+#define COINFIX1_BLOCK  (15000)
+
+// for now, we leave the block size at 1 MB, meaning we support roughly 2400 transactions
+// per block, which means about 160 tps
 static const unsigned int MAX_BLOCK_SIZE = 1000000;
 static const unsigned int MAX_BLOCK_SIZE_GEN = MAX_BLOCK_SIZE/2;
 static const unsigned int MAX_BLOCK_SIGOPS = MAX_BLOCK_SIZE/50;
 static const unsigned int MAX_ORPHAN_TRANSACTIONS = MAX_BLOCK_SIZE/100;
-static const int64 MIN_TX_FEE = 100000000;
+static const int64 MIN_TX_FEE = 10000;
 static const int64 MIN_RELAY_TX_FEE = MIN_TX_FEE;
-static const int64 MAX_MONEY = 10000000000 * COIN; // HSCoin: maximum of 100B coins (given some randomness), max transaction 10,000,000,000 for now
+static const int64 MAX_MONEY = 1000000000 * COIN; // maximum number of coins
 inline bool MoneyRange(int64 nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
-static const int COINBASE_MATURITY = 30;
+static const int COINBASE_MATURITY = 15;
 // Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp.
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
 #ifdef USE_UPNP
@@ -50,7 +57,7 @@ extern CScript COINBASE_FLAGS;
 
 
 
-static const uint256 hashGenesisBlockOfficial("0x1a91e3dace36e2be3bf030a65679fe821aa1d6ef92e7c9902eb318182c355691");
+
 
 extern CCriticalSection cs_main;
 extern std::map<uint256, CBlockIndex*> mapBlockIndex;
@@ -540,7 +547,7 @@ public:
     {
         // Large (in bytes) low-priority (new, small-coin) transactions
         // need a fee.
-        return dPriority > 100 * COIN * 1440 / 250; // HSCoin: 1440 blocks found a day. Priority cutoff is 100 hscoin day / 250 bytes.
+        return dPriority > COIN * 1440 / 250; // 1440 blocks found a day.
     }
 
     int64 GetMinFee(unsigned int nBlockSize=1, bool fAllowFree=true, enum GetMinFee_mode mode=GMF_BLOCK) const
@@ -571,7 +578,7 @@ public:
 
         // To limit dust spam, add MIN_TX_FEE/MIN_RELAY_TX_FEE for any output that is less than 0.01
         BOOST_FOREACH(const CTxOut& txout, vout)
-            if (txout.nValue < COIN)
+            if (txout.nValue < CENT)
                 nMinFee += nBaseFee;
 
         // Raise the price as the block approaches full

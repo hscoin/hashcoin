@@ -14,6 +14,10 @@ QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
     unitlist.append(BTC);
     unitlist.append(mBTC);
     unitlist.append(uBTC);
+    unitlist.append(nBTC);
+    unitlist.append(KBTC);
+    unitlist.append(MBTC);
+    unitlist.append(GBTC);
     return unitlist;
 }
 
@@ -24,6 +28,10 @@ bool BitcoinUnits::valid(int unit)
     case BTC:
     case mBTC:
     case uBTC:
+    case nBTC:
+    case KBTC:
+    case MBTC:
+    case GBTC:
         return true;
     default:
         return false;
@@ -34,9 +42,13 @@ QString BitcoinUnits::name(int unit)
 {
     switch(unit)
     {
-    case BTC: return QString("DOGE");
-    case mBTC: return QString("mDOGE");
-    case uBTC: return QString::fromUtf8("μDOGE");
+    case BTC: return QString("FOX");
+    case mBTC: return QString("mFOX");
+    case uBTC: return QString::fromUtf8("μFOX");
+    case nBTC: return QString("nFOX");
+    case KBTC: return QString("KFOX");
+    case MBTC: return QString("MFOX");
+    case GBTC: return QString("GFOX");
     default: return QString("???");
     }
 }
@@ -45,13 +57,17 @@ QString BitcoinUnits::description(int unit)
 {
     switch(unit)
     {
-    case BTC: return QString("HSCoins");
-    case mBTC: return QString("Milli-HSCoins (1 / 1,000)");
-    case uBTC: return QString("Micro-HSCoins(1 / 1,000,000)");
+    case BTC: return QString("HSCoin");
+    case mBTC: return QString("milliHSCoin (1 / 1,000)");
+    case uBTC: return QString("microHSCoin (1 / 1,000,000)");
+    case nBTC: return QString("nanoHSCoin (1 / 100,000,000)");
+    case KBTC: return QString("KiloHSCoin (1 * 1,000)");
+    case MBTC: return QString("MegaHSCoin (1 * 1,000,000)");
+    case GBTC: return QString("GigaHSCoin (1 * 1,000,000,000)");
     default: return QString("???");
     }
 }
-
+//a single unit (.00000001) of HSCoin is called a "nanoHSCoin."
 qint64 BitcoinUnits::factor(int unit)
 {
     switch(unit)
@@ -59,6 +75,10 @@ qint64 BitcoinUnits::factor(int unit)
     case BTC:  return 100000000;
     case mBTC: return 100000;
     case uBTC: return 100;
+    case nBTC: return 1;
+    case KBTC: return 100000000000;
+    case MBTC: return 100000000000000;
+    case GBTC: return 100000000000000000;
     default:   return 100000000;
     }
 }
@@ -67,9 +87,13 @@ int BitcoinUnits::amountDigits(int unit)
 {
     switch(unit)
     {
-    case BTC: return 8; // 21,000,000 (# digits, without commas)
-    case mBTC: return 11; // 21,000,000,000
-    case uBTC: return 14; // 21,000,000,000,000
+    case BTC: return 11; // 1,000,000,000 (# digits, without commas)
+    case mBTC: return 13; // 1,000,000,000,000
+    case uBTC: return 16; // 1,000,000,000,000,000
+    case nBTC: return 18; // 100,000,000,000,000,000 
+    case KBTC: return 7; // 1,000,000
+    case MBTC: return 4; // 1,000
+    case GBTC: return 1; // 1
     default: return 0;
     }
 }
@@ -81,6 +105,10 @@ int BitcoinUnits::decimals(int unit)
     case BTC: return 8;
     case mBTC: return 5;
     case uBTC: return 2;
+    case nBTC: return 0;
+    case KBTC: return 11;
+    case MBTC: return 14;
+    case GBTC: return 17;
     default: return 0;
     }
 }

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Hscoin - Debug window</string>
+   <string>HSCoin - Debug window</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
@@ -322,7 +322,7 @@
        <item row="15" column="0">
         <widget class="QPushButton" name="openDebugLogfileButton">
          <property name="toolTip">
-          <string>Open the Hscoin debug logfile from the current data directory. This can take a few seconds for large logfiles.</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open the HSCoin debug logfile from the current data directory. This can take a few seconds for large logfiles.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
           <string>&amp;Open</string>
@@ -348,13 +348,10 @@
        <item row="17" column="0">
         <widget class="QPushButton" name="showCLOptionsButton">
          <property name="toolTip">
-          <string>Show the Hscoin-Qt help message to get a list with possible Hscoin command-line options.</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Show the HSCoin-qt help message to get a list with possible command-line options.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="text">
           <string>&amp;Show</string>
-         </property>
-         <property name="autoDefault">
-          <bool>false</bool>
          </property>
          <property name="autoDefault">
           <bool>false</bool>

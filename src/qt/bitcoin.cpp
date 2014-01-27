@@ -121,7 +121,7 @@ int main(int argc, char *argv[])
     // Do this early as we don't want to bother initializing if we are just calling IPC
     for (int i = 1; i < argc; i++)
     {
-        if (boost::algorithm::istarts_with(argv[i], "hscoin:"))
+        if (boost::algorithm::istarts_with(argv[i], "HSCoin:"))
         {
             const char *strURI = argv[i];
             try {
@@ -170,11 +170,11 @@ int main(int argc, char *argv[])
     // Application identification (must be set before OptionsModel is initialized,
     // as it is used to locate QSettings)
     app.setOrganizationName("HSCoin");
-    app.setOrganizationDomain("hscoin-noexist-domain.org");
+    app.setOrganizationDomain("we-have-no-domain-yet.nex");
     if(GetBoolArg("-testnet")) // Separate UI settings for testnet
-        app.setApplicationName("HSCoin-Qt-testnet");
+        app.setApplicationName("hscoin-qt-testnet");
     else
-        app.setApplicationName("HSCoin-Qt");
+        app.setApplicationName("HSCoin-qt");
 
     // ... then GUI settings:
     OptionsModel optionsModel;
@@ -278,7 +278,7 @@ int main(int argc, char *argv[])
                 // Check for URI in argv
                 for (int i = 1; i < argc; i++)
                 {
-                    if (boost::algorithm::istarts_with(argv[i], "hscoin:"))
+                    if (boost::algorithm::istarts_with(argv[i], "HSCoin:"))
                     {
                         const char *strURI = argv[i];
                         try {
@@ -299,7 +299,7 @@ int main(int argc, char *argv[])
                 window.setWalletModel(0);
                 guiref = 0;
             }
-            // Shutdown the core and its threads, but don't exit Bitcoin-Qt here
+            // Shutdown the core and it's threads, but don't exit HSCoin-Qt here
             Shutdown(NULL);
         }
         else

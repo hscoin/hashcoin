@@ -55,8 +55,8 @@ QString dateTimeStr(qint64 nTime)
 
 QFont bitcoinAddressFont()
 {
-    QFont font("Cursive");
-    font.setFamily("Comic Sans MS");
+    QFont font("Monospace");
+    font.setStyleHint(QFont::TypeWriter);
     return font;
 }
 
@@ -78,7 +78,7 @@ void setupAmountWidget(QLineEdit *widget, QWidget *parent)
 
 bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out)
 {
-    if(uri.scheme() != QString("hscoin"))
+    if(uri.scheme() != QString("HSCoin"))
         return false;
 
     // check if the address is valid
@@ -128,13 +128,13 @@ bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out)
 
 bool parseBitcoinURI(QString uri, SendCoinsRecipient *out)
 {
-    // Convert hscoin:// to hscoin:
+    // Convert HSCoin:// to HSCoin:
     //
-    //    Cannot handle this later, because hscoin:// will cause Qt to see the part after // as host,
+    //    Cannot handle this later, because HSCoin:// will cause Qt to see the part after // as host,
     //    which will lowercase it (and thus invalidate the address).
-    if(uri.startsWith("hscoin://"))
+    if(uri.startsWith("HSCoin://"))
     {
-        uri.replace(0, 11, "hscoin:");
+        uri.replace(0, 11, "HSCoin:");
     }
     QUrl uriInstance(uri);
     return parseBitcoinURI(uriInstance, out);
@@ -185,7 +185,7 @@ QString getSaveFileName(QWidget *parent, const QString &caption,
     }
     QString result = QFileDialog::getSaveFileName(parent, caption, myDir, filter, &selectedFilter);
 
-    /* Extract first suffix from filter pattern "Description (*.foo)" or "Description (*.foo *.bar ...) */
+    /* Extract first suffix from filter pattern "Description (*.FOX)" or "Description (*.FOX *.fox ...) */
     QRegExp filter_re(".* \\(\\*\\.(.*)[ \\)]");
     QString selectedSuffix;
     if(filter_re.exactMatch(selectedFilter))
@@ -278,12 +278,12 @@ bool ToolTipToRichTextFilter::eventFilter(QObject *obj, QEvent *evt)
 #ifdef WIN32
 boost::filesystem::path static StartupShortcutPath()
 {
-    return GetSpecialFolderPath(CSIDL_STARTUP) / "HSCoin.lnk";
+    return GetSpecialFolderPath(CSIDL_STARTUP) / "hscoin.lnk";
 }
 
 bool GetStartOnSystemStartup()
 {
-    // check for HSCoin.lnk
+    // check for hscoin.lnk
     return boost::filesystem::exists(StartupShortcutPath());
 }
 
@@ -422,10 +422,10 @@ bool SetStartOnSystemStartup(bool fAutoStart) { return false; }
 HelpMessageBox::HelpMessageBox(QWidget *parent) :
     QMessageBox(parent)
 {
-    header = tr("HSCoin-Qt") + " " + tr("version") + " " +
+    header = tr("HSCoin-qt") + " " + tr("version") + " " +
         QString::fromStdString(FormatFullVersion()) + "\n\n" +
         tr("Usage:") + "\n" +
-        "  hscoin-qt [" + tr("command-line options") + "]                     " + "\n";
+        "  HSCoin-qt [" + tr("command-line options") + "]                     " + "\n";
 
     coreOptions = QString::fromStdString(HelpMessage());
 
@@ -434,7 +434,7 @@ HelpMessageBox::HelpMessageBox(QWidget *parent) :
         "  -min                   " + tr("Start minimized") + "\n" +
         "  -splash                " + tr("Show splash screen on startup (default: 1)") + "\n";
 
-    setWindowTitle(tr("HSCoin-Qt"));
+    setWindowTitle(tr("HSCoin-qt"));
     setTextFormat(Qt::PlainText);
     // setMinimumWidth is ignored for QMessageBox so put in nonbreaking spaces to make it wider.
     setText(header + QString(QChar(0x2003)).repeated(50));

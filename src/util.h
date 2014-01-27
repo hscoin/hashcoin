@@ -174,7 +174,6 @@ uint256 GetRandHash();
 int64 GetTime();
 void SetMockTime(int64 nMockTimeIn);
 int64 GetAdjustedTime();
-long hex2long(const char* hexString);
 std::string FormatFullVersion();
 std::string FormatSubVersion(const std::string& name, int nClientVersion, const std::vector<std::string>& comments);
 void AddTimeData(const CNetAddr& ip, int64 nTime);
@@ -318,7 +317,7 @@ inline bool IsSwitchChar(char c)
 /**
  * Return string argument or default value
  *
- * @param strArg Argument to get (e.g. "-foo")
+ * @param strArg Argument to get (e.g. "-BAR")
  * @param default (e.g. "1")
  * @return command-line argument or default value
  */
@@ -327,7 +326,7 @@ std::string GetArg(const std::string& strArg, const std::string& strDefault);
 /**
  * Return integer argument or default value
  *
- * @param strArg Argument to get (e.g. "-foo")
+ * @param strArg Argument to get (e.g. "-BAR")
  * @param default (e.g. 1)
  * @return command-line argument (0 if invalid number) or default value
  */
@@ -336,7 +335,7 @@ int64 GetArg(const std::string& strArg, int64 nDefault);
 /**
  * Return boolean argument or default value
  *
- * @param strArg Argument to get (e.g. "-foo")
+ * @param strArg Argument to get (e.g. "-BAR")
  * @param default (true or false)
  * @return command-line argument or default value
  */
@@ -345,7 +344,7 @@ bool GetBoolArg(const std::string& strArg, bool fDefault=false);
 /**
  * Set an argument if it doesn't already have a value
  *
- * @param strArg Argument to set (e.g. "-foo")
+ * @param strArg Argument to set (e.g. "-BAR")
  * @param strValue Value (e.g. "1")
  * @return true if argument gets set, false if it already had a value
  */
@@ -354,7 +353,7 @@ bool SoftSetArg(const std::string& strArg, const std::string& strValue);
 /**
  * Set a boolean argument if it doesn't already have a value
  *
- * @param strArg Argument to set (e.g. "-foo")
+ * @param strArg Argument to set (e.g. "-BAR")
  * @param fValue Value (e.g. false)
  * @return true if argument gets set, false if it already had a value
  */
@@ -553,9 +552,9 @@ public:
 // Note: It turns out we might have been able to use boost::thread
 // by using TerminateThread(boost::thread.native_handle(), 0);
 #ifdef WIN32
-typedef HANDLE pthread_thread;
+typedef HANDLE pthread_t;
 
-inline pthread_thread CreateThread(void(*pfn)(void*), void* parg, bool fWantHandle=false)
+inline pthread_t CreateThread(void(*pfn)(void*), void* parg, bool fWantHandle=false)
 {
     DWORD nUnused = 0;
     HANDLE hthread =
@@ -569,12 +568,12 @@ inline pthread_thread CreateThread(void(*pfn)(void*), void* parg, bool fWantHand
     if (hthread == NULL)
     {
         printf("Error: CreateThread() returned %d\n", GetLastError());
-        return (pthread_thread)0;
+        return (pthread_t)0;
     }
     if (!fWantHandle)
     {
         CloseHandle(hthread);
-        return (pthread_thread)-1;
+        return (pthread_t)-1;
     }
     return hthread;
 }

@@ -262,7 +262,7 @@ bool CWallet::EncryptWallet(const SecureString& strWalletPassphrase)
         {
             if (fFileBacked)
                 pwalletdbEncryption->TxnAbort();
-            exit(1); //We now probably have half of our keys encrypted in memory, and half not...die and let the user reload their unencrypted wallet.
+            exit(1); //We now probably have half of our keys encrypted in memory, and half not...die and let the user reload their unencrypted FoxHole.
         }
 
         // Encryption was introduced in version 0.4.0
@@ -295,8 +295,8 @@ bool CWallet::EncryptWallet(const SecureString& strWalletPassphrase)
 void CWallet::WalletUpdateSpent(const CTransaction &tx)
 {
     // Anytime a signature is successfully verified, it's proof the outpoint is spent.
-    // Update the wallet spent flag if it doesn't know due to wallet.dat being
-    // restored from backup or the user making copies of wallet.dat.
+    // Update the wallet spent flag if it doesn't know due to foxhole.dat being
+    // restored from backup or the user making copies of foxhole.dat.
     {
         LOCK(cs_wallet);
         BOOST_FOREACH(const CTxIn& txin, tx.vin)
@@ -733,7 +733,7 @@ void CWallet::ReacceptWalletTransactions()
             bool fUpdated = false;
             if (txdb.ReadTxIndex(wtx.GetHash(), txindex))
             {
-                // Update fSpent if a tx got spent somewhere else by a copy of wallet.dat
+                // Update fSpent if a tx got spent somewhere else by a copy of foxhole.dat
                 if (txindex.vSpent.size() != wtx.vout.size())
                 {
                     printf("ERROR: ReacceptWalletTransactions() : txindex.vSpent.size() %d != wtx.vout.size() %d\n", txindex.vSpent.size(), wtx.vout.size());
@@ -1125,7 +1125,7 @@ bool CWallet::CreateTransaction(const vector<pair<CScript, int64> >& vecSend, CW
                 // if sub-cent change is required, the fee must be raised to at least MIN_TX_FEE
                 // or until nChange becomes zero
                 // NOTE: this depends on the exact behaviour of GetMinFee
-                if (nFeeRet < MIN_TX_FEE && nChange > 0 && nChange < COIN)
+                if (nFeeRet < MIN_TX_FEE && nChange > 0 && nChange < CENT)
                 {
                     int64 nMoveToFee = min(nChange, MIN_TX_FEE - nFeeRet);
                     nChange -= nMoveToFee;
@@ -1261,7 +1261,7 @@ string CWallet::SendMoney(CScript scriptPubKey, int64 nValue, CWalletTx& wtxNew,
 
     if (IsLocked())
     {
-        string strError = _("Error: Wallet locked, unable to create transaction  ");
+        string strError = _("Error: FoxHole locked, unable to create transaction  ");
         printf("SendMoney() : %s", strError.c_str());
         return strError;
     }
@@ -1280,7 +1280,7 @@ string CWallet::SendMoney(CScript scriptPubKey, int64 nValue, CWalletTx& wtxNew,
         return "ABORTED";
 
     if (!CommitTransaction(wtxNew, reservekey))
-        return _("Error: The transaction was rejected.  This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.");
+        return _("Error: The transaction was rejected.  This might happen if some of the coins in your FoxHole were already spent, such as if you used a copy of foxhole.dat and coins were spent in the copy but not marked as spent here.");
 
     return "";
 }

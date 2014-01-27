@@ -24,11 +24,11 @@ SignVerifyMessageDialog::SignVerifyMessageDialog(QWidget *parent) :
 
 #if (QT_VERSION >= 0x040700)
     /* Do not move this to the XML file, Qt before 4.7 will choke on it */
-    ui->addressIn_SM->setPlaceholderText(tr("Enter a HSCoin address (e.g. 7NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)"));
+    ui->addressIn_SM->setPlaceholderText(tr("Enter a Bitcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)"));
     ui->signatureOut_SM->setPlaceholderText(tr("Click \"Sign Message\" to generate signature"));
 
-    ui->addressIn_VM->setPlaceholderText(tr("Enter a HSCoin address (e.g. 7NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)"));
-    ui->signatureIn_VM->setPlaceholderText(tr("Enter HSCoin signature"));
+    ui->addressIn_VM->setPlaceholderText(tr("Enter a Bitcoin address (e.g. 1NS17iag9jJgTHD1VXjvLCEnZuQ3rJDE9L)"));
+    ui->signatureIn_VM->setPlaceholderText(tr("Enter Bitcoin signature"));
 #endif
 
     GUIUtil::setupAddressWidget(ui->addressIn_SM, this);
@@ -110,7 +110,7 @@ void SignVerifyMessageDialog::on_signMessageButton_SM_clicked()
     {
         ui->addressIn_SM->setValid(false);
         ui->statusLabel_SM->setStyleSheet("QLabel { color: red; }");
-        ui->statusLabel_SM->setText(tr("The entered address is invalid.") + QString(" ") + tr("Please check the address and try again."));
+        ui->statusLabel_SM->setText(tr("The entered opening is invalid.") + QString(" ") + tr("Please check the opening and try again."));
         return;
     }
     CKeyID keyID;
@@ -118,7 +118,7 @@ void SignVerifyMessageDialog::on_signMessageButton_SM_clicked()
     {
         ui->addressIn_SM->setValid(false);
         ui->statusLabel_SM->setStyleSheet("QLabel { color: red; }");
-        ui->statusLabel_SM->setText(tr("The entered address does not refer to a key.") + QString(" ") + tr("Please check the address and try again."));
+        ui->statusLabel_SM->setText(tr("The entered opening does not refer to a key.") + QString(" ") + tr("Please check the opening and try again."));
         return;
     }
 
@@ -134,7 +134,7 @@ void SignVerifyMessageDialog::on_signMessageButton_SM_clicked()
     if (!pwalletMain->GetKey(keyID, key))
     {
         ui->statusLabel_SM->setStyleSheet("QLabel { color: red; }");
-        ui->statusLabel_SM->setText(tr("Private key for the entered address is not available."));
+        ui->statusLabel_SM->setText(tr("Private key for the entered opening is not available."));
         return;
     }
 
@@ -191,7 +191,7 @@ void SignVerifyMessageDialog::on_verifyMessageButton_VM_clicked()
     {
         ui->addressIn_VM->setValid(false);
         ui->statusLabel_VM->setStyleSheet("QLabel { color: red; }");
-        ui->statusLabel_VM->setText(tr("The entered address is invalid.") + QString(" ") + tr("Please check the address and try again."));
+        ui->statusLabel_VM->setText(tr("The entered opening is invalid.") + QString(" ") + tr("Please check the opening and try again."));
         return;
     }
     CKeyID keyID;
@@ -199,7 +199,7 @@ void SignVerifyMessageDialog::on_verifyMessageButton_VM_clicked()
     {
         ui->addressIn_VM->setValid(false);
         ui->statusLabel_VM->setStyleSheet("QLabel { color: red; }");
-        ui->statusLabel_VM->setText(tr("The entered address does not refer to a key.") + QString(" ") + tr("Please check the address and try again."));
+        ui->statusLabel_VM->setText(tr("The entered opening does not refer to a key.") + QString(" ") + tr("Please check the opening and try again."));
         return;
     }
 

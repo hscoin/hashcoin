@@ -11,13 +11,13 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Address Book</string>
+   <string>Opening Map</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QLabel" name="labelExplanation">
      <property name="text">
-      <string>These are your Hscoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</string>
+      <string>These are your HSCoin openings for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</string>
      </property>
      <property name="textFormat">
       <enum>Qt::PlainText</enum>
@@ -63,7 +63,7 @@
         <string>Create a new address</string>
        </property>
        <property name="text">
-        <string>&amp;New Address</string>
+        <string>&amp;New Opening</string>
        </property>
        <property name="icon">
         <iconset resource="../bitcoin.qrc">
@@ -77,7 +77,7 @@
         <string>Copy the currently selected address to the system clipboard</string>
        </property>
        <property name="text">
-        <string>&amp;Copy Address</string>
+        <string>&amp;Copy Opening</string>
        </property>
        <property name="icon">
         <iconset resource="../bitcoin.qrc">
@@ -99,7 +99,7 @@
      <item>
       <widget class="QPushButton" name="signMessage">
        <property name="toolTip">
-        <string>Sign a message to prove you own a HSCoin address</string>
+        <string>Sign a message to prove you own a Bitcoin address</string>
        </property>
        <property name="text">
         <string>&amp;Sign Message</string>
@@ -113,7 +113,7 @@
      <item>
       <widget class="QPushButton" name="verifyMessage">
        <property name="toolTip">
-        <string>Verify a message to ensure it was signed with a specified HSCoin address</string>
+        <string>Verify a message to ensure it was signed with a specified Bitcoin address</string>
        </property>
        <property name="text">
         <string>&amp;Verify Message</string>
@@ -130,11 +130,18 @@
         <string>Delete the currently selected address from the list. Only sending addresses can be deleted.</string>
        </property>
        <property name="text">
-        <string>&amp;Delete</string>
+        <string>&amp;Fill</string>
        </property>
        <property name="icon">
         <iconset resource="../bitcoin.qrc">
          <normaloff>:/icons/remove</normaloff>:/icons/remove</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>LOL</string>
        </property>
       </widget>
      </item>

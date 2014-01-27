@@ -19,7 +19,11 @@ public:
     {
         BTC,
         mBTC,
-        uBTC
+        uBTC,
+        nBTC,
+        KBTC,
+        MBTC,
+        GBTC
     };
 
     //! @name Static API

@@ -1,7 +1,8 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2012 The Bitcoin developers
 // Copyright (c) 2011-2012 The Litecoin Developers
-// Copyright (c) 2013 The HSCoin Developers
+// Copyright (c) 2013 Adam M. (Wouldn't want your name to be lower case, would you?)
+// Copyright (c) 2014 HSCoin Foxes.
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -137,7 +138,7 @@ double GetDifficulty(const CBlockIndex* blockindex = NULL)
 int64 AmountFromValue(const Value& value)
 {
     double dAmount = value.get_real();
-    if (dAmount <= 0.0 || dAmount > 500000000.0)
+    if (dAmount <= 0.0 || dAmount > 84000000.0)
         throw JSONRPCError(-3, "Invalid amount");
     int64 nAmount = roundint64(dAmount * COIN);
     if (!MoneyRange(nAmount))
@@ -165,7 +166,7 @@ std::string
 HelpRequiringPassphrase()
 {
     return pwalletMain->IsCrypted()
-        ? "\nrequires wallet passphrase to be set with walletpassphrase first"
+        ? "\nrequires FoxHole passphrase to be set with FoxHolepassphrase first"
         : "";
 }
 
@@ -173,7 +174,7 @@ void
 EnsureWalletIsUnlocked()
 {
     if (pwalletMain->IsLocked())
-        throw JSONRPCError(-13, "Error: Please enter the wallet passphrase with walletpassphrase first.");
+        throw JSONRPCError(-13, "Error: Please enter the FoxHole passphrase with FoxHolepassphrase first.");
 }
 
 void WalletTxToJSON(const CWalletTx& wtx, Object& entry)
@@ -313,7 +314,7 @@ Value getdifficulty(const Array& params, bool fHelp)
 }
 
 
-// HSCoin: Return average network hashes per second based on last number of blocks.
+// Litecoin: Return average network hashes per second based on last number of blocks.
 Value GetNetworkHashPS(int lookup) {
     if (pindexBest == NULL)
         return 0;
@@ -341,8 +342,8 @@ Value getnetworkhashps(const Array& params, bool fHelp)
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "getnetworkhashps [blocks]\n"
-            "Returns the estimated network hashes per second based on the last 120 blocks.\n"
-            "Pass in [blocks] to override # of blocks, -1 specifies since last difficulty change.");
+            "Returns the estimated network paws per second based on the last 120 blocks.\n"
+            "Pass in [blocks] to override # of acres, -1 specifies since last difficulty change.");
 
     return GetNetworkHashPS(params.size() > 0 ? params[0].get_int() : 120);
 }
@@ -457,9 +458,9 @@ Value getnewaddress(const Array& params, bool fHelp)
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "getnewaddress [account]\n"
-            "Returns a new HSCoin address for receiving payments.  "
-            "If [account] is specified (recommended), it is added to the address book "
-            "so payments received with the address will be credited to [account].");
+            "Returns a new HSCoin opening for receiving payments.  "
+            "If [account] is specified (recommended), it is added to the opening book "
+            "so payments received with the opening will be credited to [account].");
 
     // Parse the account first so we don't generate a key if there's an error
     string strAccount;
@@ -524,7 +525,7 @@ Value getaccountaddress(const Array& params, bool fHelp)
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "getaccountaddress <account>\n"
-            "Returns the current HSCoin address for receiving payments to this account.");
+            "Returns the current HSCoin opening for receiving payments to this account.");
 
     // Parse the account first so we don't generate a key if there's an error
     string strAccount = AccountFromValue(params[0]);
@@ -542,12 +543,12 @@ Value setaccount(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
-            "setaccount <hscoinaddress> <account>\n"
+            "setaccount <HSCoin opening> <account>\n"
             "Sets the account associated with the given address.");
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
-        throw JSONRPCError(-5, "Invalid HSCoin address");
+        throw JSONRPCError(-5, "Invalid HSCoin opening");
 
 
     string strAccount;
@@ -572,12 +573,12 @@ Value getaccount(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
-            "getaccount <hscoinaddress>\n"
-            "Returns the account associated with the given address.");
+            "getaccount <HSCoin opening>\n"
+            "Returns the account associated with the given opening.");
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
-        throw JSONRPCError(-5, "Invalid HSCoin address");
+        throw JSONRPCError(-5, "Invalid HSCoin opening");
 
     string strAccount;
     map<CTxDestination, string>::iterator mi = pwalletMain->mapAddressBook.find(address.Get());
@@ -592,7 +593,7 @@ Value getaddressesbyaccount(const Array& params, bool fHelp)
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "getaddressesbyaccount <account>\n"
-            "Returns the list of addresses for the given account.");
+            "Returns the list of opening for the given account.");
 
     string strAccount = AccountFromValue(params[0]);
 
@@ -644,13 +645,13 @@ Value sendtoaddress(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 2 || params.size() > 4)
         throw runtime_error(
-            "sendtoaddress <hscoinaddress> <amount> [comment] [comment-to]\n"
+            "sendtoaddress <HSCoin opening> <amount> [comment] [comment-to]\n"
             "<amount> is a real and is rounded to the nearest 0.00000001"
             + HelpRequiringPassphrase());
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
-        throw JSONRPCError(-5, "Invalid HSCoin address");
+        throw JSONRPCError(-5, "Invalid HSCoin opening");
 
     // Amount
     int64 nAmount = AmountFromValue(params[1]);
@@ -663,7 +664,7 @@ Value sendtoaddress(const Array& params, bool fHelp)
         wtx.mapValue["to"]      = params[3].get_str();
 
     if (pwalletMain->IsLocked())
-        throw JSONRPCError(-13, "Error: Please enter the wallet passphrase with walletpassphrase first.");
+        throw JSONRPCError(-13, "Error: Please enter the HSCoin passphrase with HSCoinpassphrase first.");
 
     string strError = pwalletMain->SendMoneyToDestination(address.Get(), nAmount, wtx);
     if (strError != "")
@@ -676,7 +677,7 @@ Value signmessage(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 2)
         throw runtime_error(
-            "signmessage <hscoinaddress> <message>\n"
+            "signmessage <HSCoin opening> <message>\n"
             "Sign a message with the private key of an address");
 
     EnsureWalletIsUnlocked();
@@ -686,11 +687,11 @@ Value signmessage(const Array& params, bool fHelp)
 
     CBitcoinAddress addr(strAddress);
     if (!addr.IsValid())
-        throw JSONRPCError(-3, "Invalid address");
+        throw JSONRPCError(-3, "Invalid opening");
 
     CKeyID keyID;
     if (!addr.GetKeyID(keyID))
-        throw JSONRPCError(-3, "Address does not refer to key");
+        throw JSONRPCError(-3, "Opening does not refer to key");
 
     CKey key;
     if (!pwalletMain->GetKey(keyID, key))
@@ -711,7 +712,7 @@ Value verifymessage(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 3)
         throw runtime_error(
-            "verifymessage <hscoinaddress> <signature> <message>\n"
+            "verifymessage <HSCoin opening> <signature> <message>\n"
             "Verify a signed message");
 
     string strAddress  = params[0].get_str();
@@ -720,11 +721,11 @@ Value verifymessage(const Array& params, bool fHelp)
 
     CBitcoinAddress addr(strAddress);
     if (!addr.IsValid())
-        throw JSONRPCError(-3, "Invalid address");
+        throw JSONRPCError(-3, "Invalid opening");
 
     CKeyID keyID;
     if (!addr.GetKeyID(keyID))
-        throw JSONRPCError(-3, "Address does not refer to key");
+        throw JSONRPCError(-3, "Opening does not refer to key");
 
     bool fInvalid = false;
     vector<unsigned char> vchSig = DecodeBase64(strSign.c_str(), &fInvalid);
@@ -748,14 +749,14 @@ Value getreceivedbyaddress(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
-            "getreceivedbyaddress <hscoinaddress> [minconf=1]\n"
-            "Returns the total amount received by <hscoinaddress> in transactions with at least [minconf] confirmations.");
+            "getreceivedbyaddress <HSCoin opening> [minconf=1]\n"
+            "Returns the total amount received by <HSCoin opening> in transactions with at least [minconf] confirmations.");
 
-    // hscoin address
+    // HSCoin opening
     CBitcoinAddress address = CBitcoinAddress(params[0].get_str());
     CScript scriptPubKey;
     if (!address.IsValid())
-        throw JSONRPCError(-5, "Invalid HSCoin address");
+        throw JSONRPCError(-5, "Invalid HSCoin opening");
     scriptPubKey.SetDestination(address.Get());
     if (!IsMine(*pwalletMain,scriptPubKey))
         return (double)0.0;
@@ -799,7 +800,7 @@ Value getreceivedbyaccount(const Array& params, bool fHelp)
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
             "getreceivedbyaccount <account> [minconf=1]\n"
-            "Returns the total amount received by addresses with <account> in transactions with at least [minconf] confirmations.");
+            "Returns the total amount received by openings with <account> in transactions with at least [minconf] confirmations.");
 
     // Minimum confirmations
     int nMinDepth = 1;
@@ -922,7 +923,7 @@ Value movecmd(const Array& params, bool fHelp)
     if (fHelp || params.size() < 3 || params.size() > 5)
         throw runtime_error(
             "move <fromaccount> <toaccount> <amount> [minconf=1] [comment]\n"
-            "Move from one account in your wallet to another.");
+            "Move from one account in your FoxHole to another.");
 
     string strFrom = AccountFromValue(params[0]);
     string strTo = AccountFromValue(params[1]);
@@ -969,14 +970,14 @@ Value sendfrom(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 3 || params.size() > 6)
         throw runtime_error(
-            "sendfrom <fromaccount> <tohscoinaddress> <amount> [minconf=1] [comment] [comment-to]\n"
+            "sendfrom <fromaccount> <to HSCoin Opening> <amount> [minconf=1] [comment] [comment-to]\n"
             "<amount> is a real and is rounded to the nearest 0.00000001"
             + HelpRequiringPassphrase());
 
     string strAccount = AccountFromValue(params[0]);
     CBitcoinAddress address(params[1].get_str());
     if (!address.IsValid())
-        throw JSONRPCError(-5, "Invalid HSCoin address");
+        throw JSONRPCError(-5, "Invalid HSCoin Opening");
     int64 nAmount = AmountFromValue(params[2]);
     int nMinDepth = 1;
     if (params.size() > 3)
@@ -1032,7 +1033,7 @@ Value sendmany(const Array& params, bool fHelp)
     {
         CBitcoinAddress address(s.name_);
         if (!address.IsValid())
-            throw JSONRPCError(-5, string("Invalid HSCoin address:")+s.name_);
+            throw JSONRPCError(-5, string("Invalid HSCoin Opening:")+s.name_);
 
         if (setAddress.count(address))
             throw JSONRPCError(-8, string("Invalid parameter, duplicated address: ")+s.name_);
@@ -1074,8 +1075,8 @@ Value addmultisigaddress(const Array& params, bool fHelp)
     if (fHelp || params.size() < 2 || params.size() > 3)
     {
         string msg = "addmultisigaddress <nrequired> <'[\"key\",\"key\"]'> [account]\n"
-            "Add a nrequired-to-sign multisignature address to the wallet\"\n"
-            "each key is a HSCoin address or hex-encoded public key\n"
+            "Add a nrequired-to-sign multisignature address to the FoxHole\"\n"
+            "each key is a HSCoin Opening or hex-encoded public key\n"
             "If [account] is specified, assign address to [account].";
         throw runtime_error(msg);
     }
@@ -1088,7 +1089,7 @@ Value addmultisigaddress(const Array& params, bool fHelp)
 
     // Gather public keys
     if (nRequired < 1)
-        throw runtime_error("a multisignature address must require at least one key to redeem");
+        throw runtime_error("a multisignature opening must require at least one key to redeem");
     if ((int)keys.size() < nRequired)
         throw runtime_error(
             strprintf("not enough keys supplied "
@@ -1099,7 +1100,7 @@ Value addmultisigaddress(const Array& params, bool fHelp)
     {
         const std::string& ks = keys[i].get_str();
 
-        // Case 1:Testecoin address and we have full public key:
+        // Case 1: HSCoin opening and we have full public key:
         CBitcoinAddress address(ks);
         if (address.IsValid())
         {
@@ -1110,7 +1111,7 @@ Value addmultisigaddress(const Array& params, bool fHelp)
             CPubKey vchPubKey;
             if (!pwalletMain->GetPubKey(keyID, vchPubKey))
                 throw runtime_error(
-                    strprintf("no full public key for address %s",ks.c_str()));
+                    strprintf("no full public key for opening %s",ks.c_str()));
             if (!vchPubKey.IsValid() || !pubkeys[i].SetPubKey(vchPubKey))
                 throw runtime_error(" Invalid public key: "+ks);
         }
@@ -1553,14 +1554,14 @@ Value gettransaction(const Array& params, bool fHelp)
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "gettransaction <txid>\n"
-            "Get detailed information about in-wallet transaction <txid>");
+            "Get detailed information about in-FoxHole transaction <txid>");
 
     uint256 hash;
     hash.SetHex(params[0].get_str());
 
     Object entry;
     if (!pwalletMain->mapWallet.count(hash))
-        throw JSONRPCError(-5, "Invalid or non-wallet transaction id");
+        throw JSONRPCError(-5, "Invalid or non-FoxHole transaction id");
     const CWalletTx& wtx = pwalletMain->mapWallet[hash];
 
     int64 nCredit = wtx.GetCredit();
@@ -1587,7 +1588,7 @@ Value backupwallet(const Array& params, bool fHelp)
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "backupwallet <destination>\n"
-            "Safely copies wallet.dat to destination, which can be a directory or a path with filename.");
+            "Safely copies foxhole.dat to destination, which can be a directory or a path with filename.");
 
     string strDest = params[0].get_str();
     BackupWallet(*pwalletMain, strDest);
@@ -1671,15 +1672,15 @@ Value walletpassphrase(const Array& params, bool fHelp)
 {
     if (pwalletMain->IsCrypted() && (fHelp || params.size() != 2))
         throw runtime_error(
-            "walletpassphrase <passphrase> <timeout>\n"
-            "Stores the wallet decryption key in memory for <timeout> seconds.");
+            "foxholepassphrase <passphrase> <timeout>\n"
+            "Stores the FoxHole decryption key in memory for <timeout> seconds.");
     if (fHelp)
         return true;
     if (!pwalletMain->IsCrypted())
-        throw JSONRPCError(-15, "Error: running with an unencrypted wallet, but walletpassphrase was called.");
+        throw JSONRPCError(-15, "Error: running with an unbarricaded FoxHole, but walletpassphrase was called.");
 
     if (!pwalletMain->IsLocked())
-        throw JSONRPCError(-17, "Error: Wallet is already unlocked.");
+        throw JSONRPCError(-17, "Error: FoxHole is already unlocked.");
 
     // Note that the walletpassphrase is stored in params[0] which is not mlock()ed
     SecureString strWalletPass;
@@ -1691,12 +1692,12 @@ Value walletpassphrase(const Array& params, bool fHelp)
     if (strWalletPass.length() > 0)
     {
         if (!pwalletMain->Unlock(strWalletPass))
-            throw JSONRPCError(-14, "Error: The wallet passphrase entered was incorrect.");
+            throw JSONRPCError(-14, "Error: The FoxHole passphrase entered was incorrect.");
     }
     else
         throw runtime_error(
-            "walletpassphrase <passphrase> <timeout>\n"
-            "Stores the wallet decryption key in memory for <timeout> seconds.");
+            "FoxHolepassphrase <passphrase> <timeout>\n"
+            "Stores the FoxHole decryption key in memory for <timeout> seconds.");
 
     CreateThread(ThreadTopUpKeyPool, NULL);
     int64* pnSleepTime = new int64(params[1].get_int64());
@@ -1711,11 +1712,11 @@ Value walletpassphrasechange(const Array& params, bool fHelp)
     if (pwalletMain->IsCrypted() && (fHelp || params.size() != 2))
         throw runtime_error(
             "walletpassphrasechange <oldpassphrase> <newpassphrase>\n"
-            "Changes the wallet passphrase from <oldpassphrase> to <newpassphrase>.");
+            "Changes the FoxHole passphrase from <oldpassphrase> to <newpassphrase>.");
     if (fHelp)
         return true;
     if (!pwalletMain->IsCrypted())
-        throw JSONRPCError(-15, "Error: running with an unencrypted wallet, but walletpassphrasechange was called.");
+        throw JSONRPCError(-15, "Error: running with an unbarricaded FoxHole, but FoxHolepassphrasechange was called.");
 
     // TODO: get rid of these .c_str() calls by implementing SecureString::operator=(std::string)
     // Alternately, find a way to make params[0] mlock()'d to begin with.
@@ -1729,11 +1730,11 @@ Value walletpassphrasechange(const Array& params, bool fHelp)
 
     if (strOldWalletPass.length() < 1 || strNewWalletPass.length() < 1)
         throw runtime_error(
-            "walletpassphrasechange <oldpassphrase> <newpassphrase>\n"
-            "Changes the wallet passphrase from <oldpassphrase> to <newpassphrase>.");
+            "FoxHolepassphrasechange <oldpassphrase> <newpassphrase>\n"
+            "Changes the FoxHole passphrase from <oldpassphrase> to <newpassphrase>.");
 
     if (!pwalletMain->ChangeWalletPassphrase(strOldWalletPass, strNewWalletPass))
-        throw JSONRPCError(-14, "Error: The wallet passphrase entered was incorrect.");
+        throw JSONRPCError(-14, "Error: The FoxHole passphrase entered was incorrect.");
 
     return Value::null;
 }
@@ -1744,13 +1745,13 @@ Value walletlock(const Array& params, bool fHelp)
     if (pwalletMain->IsCrypted() && (fHelp || params.size() != 0))
         throw runtime_error(
             "walletlock\n"
-            "Removes the wallet encryption key from memory, locking the wallet.\n"
-            "After calling this method, you will need to call walletpassphrase again\n"
-            "before being able to call any methods which require the wallet to be unlocked.");
+            "Removes the FoxHole barricade key from memory, locking the FoxHole.\n"
+            "After calling this method, you will need to call FoxHolepassphrase again\n"
+            "before being able to call any methods which require the FoxHole to be unlocked.");
     if (fHelp)
         return true;
     if (!pwalletMain->IsCrypted())
-        throw JSONRPCError(-15, "Error: running with an unencrypted wallet, but walletlock was called.");
+        throw JSONRPCError(-15, "Error: running with an unbarricaded FoxHole, but walletlock was called.");
 
     {
         LOCK(cs_nWalletUnlockTime);
@@ -1766,12 +1767,12 @@ Value encryptwallet(const Array& params, bool fHelp)
 {
     if (!pwalletMain->IsCrypted() && (fHelp || params.size() != 1))
         throw runtime_error(
-            "encryptwallet <passphrase>\n"
-            "Encrypts the wallet with <passphrase>.");
+            "encryptFoxHole <passphrase>\n"
+            "barricades the FoxHole with <passphrase>.");
     if (fHelp)
         return true;
     if (pwalletMain->IsCrypted())
-        throw JSONRPCError(-15, "Error: running with an encrypted wallet, but encryptwallet was called.");
+        throw JSONRPCError(-15, "Error: running with an barricaded FoxHole, but encryptwallet was called.");
 
     // TODO: get rid of this .c_str() by implementing SecureString::operator=(std::string)
     // Alternately, find a way to make params[0] mlock()'d to begin with.
@@ -1782,16 +1783,16 @@ Value encryptwallet(const Array& params, bool fHelp)
     if (strWalletPass.length() < 1)
         throw runtime_error(
             "encryptwallet <passphrase>\n"
-            "Encrypts the wallet with <passphrase>.");
+            "Barricades the FoxHole with <passphrase>.");
 
     if (!pwalletMain->EncryptWallet(strWalletPass))
-        throw JSONRPCError(-16, "Error: Failed to encrypt the wallet.");
+        throw JSONRPCError(-16, "Error: Failed to barricade the FoxHole.");
 
     // BDB seems to have a bad habit of writing old data into
     // slack space in .dat files; that is bad if the old data is
     // unencrypted private keys.  So:
     StartShutdown();
-    return "wallet encrypted; HSCoin server stopping, restart to run with encrypted wallet";
+    return "FoxHole barricaded; HSCoin server stopping, restart to run with barricaded FoxHole";
 }
 
 class DescribeAddressVisitor : public boost::static_visitor<Object>
@@ -1833,8 +1834,8 @@ Value validateaddress(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
-            "validateaddress <hscoinaddress>\n"
-            "Return information about <hscoinaddress>.");
+            "validateaddress <HSCoin Opening>\n"
+            "Return information about <HSCoin Opening>.");
 
     CBitcoinAddress address(params[0].get_str());
     bool isValid = address.IsValid();
@@ -1860,8 +1861,6 @@ Value validateaddress(const Array& params, bool fHelp)
 
 Value getworkex(const Array& params, bool fHelp)
 {
-	printf(">>> In getworkex ....\n");
-
     if (fHelp || params.size() > 2)
         throw runtime_error(
             "getworkex [data, coinbase]\n"
@@ -1869,10 +1868,10 @@ Value getworkex(const Array& params, bool fHelp)
         );
 
     if (vNodes.empty())
-        throw JSONRPCError(-9, "HSCoin is not connected!!!");
+        throw JSONRPCError(-9, "HSCoin server is not connected!");
 
     if (IsInitialBlockDownload())
-        throw JSONRPCError(-10, "HSCoin is downloading blocks...");
+        throw JSONRPCError(-10, "HSCoin server is downloading acres...");
 
     typedef map<uint256, pair<CBlock*, CScript> > mapNewBlock_t;
     static mapNewBlock_t mapNewBlock;
@@ -1998,13 +1997,13 @@ Value getwork(const Array& params, bool fHelp)
             "  \"data\" : block data\n"
             "  \"hash1\" : formatted hash buffer for second hash (DEPRECATED)\n" // deprecated
             "  \"target\" : little endian hash target\n"
-            "If [data] is specified, tries to solve the block and returns true if it was successful.");
+            "If [data] is specified, tries to solve the acre and returns true if it was successful.");
 
     if (vNodes.empty())
-        throw JSONRPCError(-9, "HSCoin is not connected!");
+        throw JSONRPCError(-9, "HSCoin server is not connected!");
 
     if (IsInitialBlockDownload())
-        throw JSONRPCError(-10, "HSCoin is downloading blocks...");
+        throw JSONRPCError(-10, "HSCoin server is downloading acres...");
 
     typedef map<uint256, pair<CBlock*, CScript> > mapNewBlock_t;
     static mapNewBlock_t mapNewBlock;    // FIXME: thread safety
@@ -2064,7 +2063,7 @@ Value getwork(const Array& params, bool fHelp)
         result.push_back(Pair("data",     HexStr(BEGIN(pdata), END(pdata))));
         result.push_back(Pair("hash1",    HexStr(BEGIN(phash1), END(phash1)))); // deprecated
         result.push_back(Pair("target",   HexStr(BEGIN(hashTarget), END(hashTarget))));
-        result.push_back(Pair("algorithm", "scrypt:1024,1,1"));  // HSCoin: specify that we should use the scrypt algorithm
+        result.push_back(Pair("algorithm", "scrypt:1024,1,1"));  // specify that we should use the scrypt algorithm
         return result;
     }
     else
@@ -2133,10 +2132,10 @@ Value getblocktemplate(const Array& params, bool fHelp)
     if (strMode == "template")
     {
         if (vNodes.empty())
-            throw JSONRPCError(-9, "HSCoin is not connected!");
+            throw JSONRPCError(-9, "HSCoin server is not connected!");
 
         if (IsInitialBlockDownload())
-            throw JSONRPCError(-10, "HSCoin is downloading blocks...");
+            throw JSONRPCError(-10, "HSCoin server is downloading acres...");
 
         static CReserveKey reservekey(pwalletMain);
 
@@ -2276,11 +2275,11 @@ Value getblockhash(const Array& params, bool fHelp)
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "getblockhash <index>\n"
-            "Returns hash of block in best-block-chain at <index>.");
+            "Returns hash of acre in best-block-chain at <index>.");
 
     int nHeight = params[0].get_int();
     if (nHeight < 0 || nHeight > nBestHeight)
-        throw runtime_error("Block number out of range.");
+        throw runtime_error("Acre number out of range.");
 
     CBlock block;
     CBlockIndex* pblockindex = mapBlockIndex[hashBestChain];
@@ -2294,13 +2293,13 @@ Value getblock(const Array& params, bool fHelp)
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "getblock <hash>\n"
-            "Returns details of a block with given block-hash.");
+            "Returns details of a acre with given block-hash.");
 
     std::string strHash = params[0].get_str();
     uint256 hash(strHash);
 
     if (mapBlockIndex.count(hash) == 0)
-        throw JSONRPCError(-5, "Block not found");
+        throw JSONRPCError(-5, "Acre not found");
 
     CBlock block;
     CBlockIndex* pblockindex = mapBlockIndex[hash];
@@ -2846,7 +2845,7 @@ void ThreadRPCServer2(void* parg)
     {
         unsigned char rand_pwd[32];
         RAND_bytes(rand_pwd, 32);
-        string strWhatAmI = "To use hscoind";
+        string strWhatAmI = "To use hscoin";
         if (mapArgs.count("-server"))
             strWhatAmI = strprintf(_("To use the %s option"), "\"-server\"");
         else if (mapArgs.count("-daemon"))

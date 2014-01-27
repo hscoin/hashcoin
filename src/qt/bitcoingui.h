@@ -86,6 +86,11 @@ private:
     QAction *verifyMessageAction;
     QAction *firstClassMessagingAction;
     QAction *aboutAction;
+    QAction *beginnerToHSCoinAction;
+    QAction *miningTutorialAction;
+    QAction *transactionTutorialAction;
+    QAction *protectionTutorialAction;
+    QAction *FAQAction;
     QAction *receiveCoinsAction;
     QAction *optionsAction;
     QAction *toggleHideAction;
@@ -147,7 +152,7 @@ private slots:
     void gotoHistoryPage();
     /** Switch to address book page */
     void gotoAddressBookPage();
-    /** Switch to Much receive page */
+    /** Switch to receive coins page */
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */
     void gotoSendCoinsPage();
@@ -161,6 +166,16 @@ private slots:
     void optionsClicked();
     /** Show about dialog */
     void aboutClicked();
+    /** Show beginner dialog*/
+    void beginnerClicked();
+    /** Show mining tutorial dialog*/
+    void miningTutClicked();
+    /** Show transaction tutorial dialog */
+    void transactionTutClicked();
+    /** Show protection tutorial dialog */
+    void protectionTutClicked();
+    /** Show FAQ */
+    void FAQClicked();
 #ifndef Q_WS_MAC
     /** Handle tray icon clicked */
     void trayIconActivated(QSystemTrayIcon::ActivationReason reason);

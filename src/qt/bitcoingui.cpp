@@ -3,8 +3,8 @@
  *
  * W.J. van der Laan 2011-2012
  * The Bitcoin Developers 2011-2012
- * The Litecoin Developers 2011-2013
- * The HSCoin Developers 2013
+ * The Litecoin Developers 201-2013 [201 CE? Yeah right, what did you code it on?]
+ * HSCoin Euro Hash 2014
  */
 #include "bitcoingui.h"
 #include "transactiontablemodel.h"
@@ -13,6 +13,11 @@
 #include "signverifymessagedialog.h"
 #include "optionsdialog.h"
 #include "aboutdialog.h"
+#include "BeginnerDialog.h"
+#include "miningTutDialog.h"
+#include "transactionTutDialog.h"
+#include "protectionTutDialog.h"
+#include "FAQDialog.h"
 #include "clientmodel.h"
 #include "walletmodel.h"
 #include "editaddressdialog.h"
@@ -46,7 +51,6 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QLocale>
-#include <QFont>
 #include <QMessageBox>
 #include <QProgressBar>
 #include <QStackedWidget>
@@ -72,7 +76,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     rpcConsole(0)
 {
     resize(850, 550);
-    setWindowTitle(tr("HSCoin") + " - " + tr("Wallet"));
+    setWindowTitle(tr("HSCoin") + " - " + tr("FoxHole"));
 #ifndef Q_WS_MAC
     qApp->setWindowIcon(QIcon(":icons/bitcoin"));
     setWindowIcon(QIcon(":icons/bitcoin"));
@@ -80,14 +84,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     setUnifiedTitleAndToolBarOnMac(true);
     QApplication::setAttribute(Qt::AA_DontShowIconsInMenus);
 #endif
-
-	//specify a new font.
-	QFont newFont("Comic Sans MS", 10);
-	
-	//set font of application
-	QApplication::setFont(newFont);
-    
-	// Accept D&D of URIs
+    // Accept D&D of URIs
     setAcceptDrops(true);
 
     // Create actions for the toolbar, menu bar and tray/dock icon
@@ -183,7 +180,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 
     // Clicking on "Verify Message" in the address book sends you to the verify message tab
     connect(addressBookPage, SIGNAL(verifyMessage(QString)), this, SLOT(gotoVerifyMessageTab(QString)));
-    // Clicking on "Sign Message" in the Much receive page sends you to the sign message tab
+    // Clicking on "Sign Message" in the receive coins page sends you to the sign message tab
     connect(receiveCoinsPage, SIGNAL(signMessage(QString)), this, SLOT(gotoSignMessageTab(QString)));
 
     gotoOverviewPage();
@@ -202,47 +199,47 @@ void BitcoinGUI::createActions()
 {
     QActionGroup *tabGroup = new QActionGroup(this);
 
-    overviewAction = new QAction(QIcon(":/icons/overview"), tr("&Wow"), this);
-    overviewAction->setToolTip(tr("Show general overview of wallet"));
+    overviewAction = new QAction(QIcon(":/icons/overview"), tr("&FoxDen"), this);
+    overviewAction->setToolTip(tr("Show general overview of your FoxHole"));
     overviewAction->setCheckable(true);
     overviewAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_1));
     tabGroup->addAction(overviewAction);
 
-    miningAction = new QAction(QIcon(":/icons/mining"), tr("&Dig"), this);
-    miningAction->setToolTip(tr("dig config"));
+    miningAction = new QAction(QIcon(":/icons/mining"), tr("&Dig Site"), this);
+    miningAction->setToolTip(tr("Configure digging"));
     miningAction->setCheckable(true);
     tabGroup->addAction(miningAction);
 
-    historyAction = new QAction(QIcon(":/icons/history"), tr("&Many History"), this);
+    historyAction = new QAction(QIcon(":/icons/history"), tr("&Scrolls"), this);
     historyAction->setToolTip(tr("Browse transaction history"));
     historyAction->setCheckable(true);
     historyAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_4));
     tabGroup->addAction(historyAction);
 
-    addressBookAction = new QAction(QIcon(":/icons/address-book"), tr("&Very Contacts"), this);
-    addressBookAction->setToolTip(tr("Edit the list of stored addresses and labels for sending"));
+    addressBookAction = new QAction(QIcon(":/icons/address-book"), tr("&Opening Map"), this);
+    addressBookAction->setToolTip(tr("Edit the list of mapped openings and labels"));
     addressBookAction->setCheckable(true);
     addressBookAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_5));
     tabGroup->addAction(addressBookAction);
 
-    receiveCoinsAction = new QAction(QIcon(":/icons/receiving_addresses"), tr("&Much Receive"), this);
-    receiveCoinsAction->setToolTip(tr("Show the list of addresses for receiving payments"));
+    receiveCoinsAction = new QAction(QIcon(":/icons/receiving_addresses"), tr("&Receive coins"), this);
+    receiveCoinsAction->setToolTip(tr("Show the list of openings for receiving payments"));
     receiveCoinsAction->setCheckable(true);
     receiveCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_3));
     tabGroup->addAction(receiveCoinsAction);
 
-    sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Pls Send"), this);
-    sendCoinsAction->setToolTip(tr("Send coins to a HSCoin address"));
+    sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send coins"), this);
+    sendCoinsAction->setToolTip(tr("Send coins to a HSCoin opening"));
     sendCoinsAction->setCheckable(true);
     sendCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_2));
     tabGroup->addAction(sendCoinsAction);
 
     signMessageAction = new QAction(QIcon(":/icons/edit"), tr("Sign &message..."), this);
-    signMessageAction->setToolTip(tr("Sign a message to prove you own a Bitcoin address"));
+    signMessageAction->setToolTip(tr("Sign a message to prove you own a HSCoin opening"));
     tabGroup->addAction(signMessageAction);
 
     verifyMessageAction = new QAction(QIcon(":/icons/transaction_0"), tr("&Verify message..."), this);
-    verifyMessageAction->setToolTip(tr("Verify a message to ensure it was signed with a specified Bitcoin address"));
+    verifyMessageAction->setToolTip(tr("Verify a message to ensure it was signed with a specified HSCoin opening"));
     tabGroup->addAction(verifyMessageAction);
 
 #ifdef FIRST_CLASS_MESSAGING
@@ -288,17 +285,32 @@ void BitcoinGUI::createActions()
     optionsAction->setMenuRole(QAction::PreferencesRole);
     toggleHideAction = new QAction(QIcon(":/icons/bitcoin"), tr("Show/Hide &HSCoin"), this);
     toggleHideAction->setToolTip(tr("Show or hide the HSCoin window"));
-    exportAction = new QAction(QIcon(":/icons/export"), tr("&So Export..."), this);
+    exportAction = new QAction(QIcon(":/icons/export"), tr("&Export..."), this);
     exportAction->setToolTip(tr("Export the data in the current tab to a file"));
-    encryptWalletAction = new QAction(QIcon(":/icons/lock_closed"), tr("&Encrypt Wallet..."), this);
-    encryptWalletAction->setToolTip(tr("Encrypt or decrypt wallet"));
+    encryptWalletAction = new QAction(QIcon(":/icons/lock_closed"), tr("&Barricade FoxHole..."), this);
+    encryptWalletAction->setToolTip(tr("Barricade or de-barricade FoxHole"));
     encryptWalletAction->setCheckable(true);
-    backupWalletAction = new QAction(QIcon(":/icons/filesave"), tr("&Backup Wallet..."), this);
-    backupWalletAction->setToolTip(tr("Backup wallet to another location"));
-    changePassphraseAction = new QAction(QIcon(":/icons/key"), tr("&Change Passphrase..."), this);
-    changePassphraseAction->setToolTip(tr("Change the passphrase used for wallet encryption"));
+    backupWalletAction = new QAction(QIcon(":/icons/filesave"), tr("&Backup FoxHole..."), this);
+    backupWalletAction->setToolTip(tr("Backup FoxHole to another location"));
+    changePassphraseAction = new QAction(QIcon(":/icons/key"), tr("&Reinforce Barricade..."), this);
+    changePassphraseAction->setToolTip(tr("Change the passphrase used for FoxHole barricade"));
     openRPCConsoleAction = new QAction(QIcon(":/icons/debugwindow"), tr("&Debug window"), this);
     openRPCConsoleAction->setToolTip(tr("Open debugging and diagnostic console"));
+    beginnerToHSCoinAction = new QAction(QIcon(":/icons/bitcoin"), tr("&What is HSCoin?"), this);
+    beginnerToHSCoinAction->setToolTip(tr("A beginners guide to HSCoin and cryptocurrency in general."));
+    beginnerToHSCoinAction->setMenuRole(QAction::AboutRole);
+    miningTutorialAction = new QAction(QIcon(":/icons/mining_active"), tr("&How to mine HSCoin"), this);
+    miningTutorialAction->setToolTip(tr("A beginners guide to mining."));
+    miningTutorialAction->setMenuRole(QAction::AboutRole);
+    transactionTutorialAction = new QAction(QIcon(":/icons/tx_inout"), tr("&How to send/receive HSCoins"), this);
+    transactionTutorialAction->setToolTip(tr("A beginners guide transactions with crypto."));
+    transactionTutorialAction->setMenuRole(QAction::AboutRole);
+    protectionTutorialAction = new QAction(QIcon(":/icons/lock_closed"), tr("&How to protect your HSCoins"), this);
+    protectionTutorialAction->setToolTip(tr("A beginners guide to barricading FoxHoles."));
+    protectionTutorialAction->setMenuRole(QAction::AboutRole);
+    FAQAction = new QAction(QIcon(":/icons/transaction_0"), tr("&FAQ"), this);
+    FAQAction->setToolTip(tr("Frequently asked questions about HSCoin."));
+    FAQAction->setMenuRole(QAction::AboutRole);
 
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(optionsAction, SIGNAL(triggered()), this, SLOT(optionsClicked()));
@@ -308,6 +320,11 @@ void BitcoinGUI::createActions()
     connect(encryptWalletAction, SIGNAL(triggered(bool)), this, SLOT(encryptWallet(bool)));
     connect(backupWalletAction, SIGNAL(triggered()), this, SLOT(backupWallet()));
     connect(changePassphraseAction, SIGNAL(triggered()), this, SLOT(changePassphrase()));
+    connect(beginnerToHSCoinAction, SIGNAL(triggered()), this, SLOT(beginnerClicked()));
+    connect(miningTutorialAction, SIGNAL(triggered()), this, SLOT(miningTutClicked()));
+    connect(transactionTutorialAction, SIGNAL (triggered()), this, SLOT(transactionTutClicked()));
+    connect(protectionTutorialAction, SIGNAL (triggered()), this, SLOT(protectionTutClicked()));
+    connect(FAQAction, SIGNAL (triggered()), this, SLOT(FAQClicked()));
 }
 
 void BitcoinGUI::createMenuBar()
@@ -342,6 +359,13 @@ void BitcoinGUI::createMenuBar()
     help->addSeparator();
     help->addAction(aboutAction);
     help->addAction(aboutQtAction);
+    
+    QMenu *tutorial = appMenuBar->addMenu(tr("&Tutorials"));
+    tutorial->addAction(beginnerToHSCoinAction);
+    tutorial->addAction(miningTutorialAction);
+    tutorial->addAction(transactionTutorialAction);
+    tutorial->addAction(protectionTutorialAction);
+    tutorial->addAction(FAQAction);
 }
 
 void BitcoinGUI::createToolBars()
@@ -444,7 +468,7 @@ void BitcoinGUI::createTrayIcon()
     trayIcon = new QSystemTrayIcon(this);
     trayIconMenu = new QMenu(this);
     trayIcon->setContextMenu(trayIconMenu);
-    trayIcon->setToolTip(tr("HSCoin client"));
+    trayIcon->setToolTip(tr("FoxHole client"));
     trayIcon->setIcon(QIcon(":/icons/toolbar"));
     connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             this, SLOT(trayIconActivated(QSystemTrayIcon::ActivationReason)));
@@ -503,6 +527,41 @@ void BitcoinGUI::aboutClicked()
     dlg.exec();
 }
 
+void BitcoinGUI::beginnerClicked()
+{
+    BeginnerDialog dlg;
+    dlg.setModel(clientModel);
+    dlg.exec();
+}
+
+void BitcoinGUI::miningTutClicked()
+{
+    miningTutDialog dlg;
+    dlg.setModel(clientModel);
+    dlg.exec();
+}
+
+void BitcoinGUI::transactionTutClicked()
+{
+    transactionTutDialog dlg;
+    dlg.setModel(clientModel);
+    dlg.exec();
+}
+
+void BitcoinGUI::protectionTutClicked()
+{
+    protectionTutDialog dlg;
+    dlg.setModel(clientModel);
+    dlg.exec();
+}
+
+void BitcoinGUI::FAQClicked()
+{
+    FAQDialog dlg;
+    dlg.setModel(clientModel);
+    dlg.exec();
+}
+
 void BitcoinGUI::setNumConnections(int count)
 {
     QString icon;
@@ -515,7 +574,7 @@ void BitcoinGUI::setNumConnections(int count)
     default: icon = ":/icons/connect_4"; break;
     }
     labelConnectionsIcon->setPixmap(QIcon(icon).pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to HSCoin network", "", count));
+    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to HSCoin Tunnel Network", "", count));
 }
 
 void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
@@ -538,9 +597,9 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
 
         if (clientModel->getStatusBarWarnings() == "")
         {
-            progressBarLabel->setText(tr("Synchronizing with network..."));
+            progressBarLabel->setText(tr("Synchronizing with tunnel network..."));
             progressBarLabel->setVisible(true);
-            progressBar->setFormat(tr("~%n block(s) remaining", "", nRemainingBlocks));
+            progressBar->setFormat(tr("~%n acre(s) remaining", "", nRemainingBlocks));
             progressBar->setMaximum(nTotalBlocks);
             progressBar->setValue(count);
             progressBar->setVisible(true);
@@ -551,7 +610,7 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
             progressBarLabel->setVisible(true);
             progressBar->setVisible(false);
         }
-        tooltip = tr("Downloaded %1 of %2 blocks of transaction history (%3% done).").arg(count).arg(nTotalBlocks).arg(nPercentageDone, 0, 'f', 2);
+        tooltip = tr("Downloaded %1 of %2 acres of transaction history (%3% done).").arg(count).arg(nTotalBlocks).arg(nPercentageDone, 0, 'f', 2);
     }
     else
     {
@@ -563,10 +622,10 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
             progressBarLabel->setVisible(true);
         }
         progressBar->setVisible(false);
-        tooltip = tr("Downloaded %1 blocks of transaction history.").arg(count);
+        tooltip = tr("Downloaded %1 acres of transaction history.").arg(count);
     }
 
-    tooltip = tr("Such difficult %1.").arg(clientModel->GetDifficulty()) + QString("<br>") + tooltip;
+    tooltip = tr("Current difficulty is %1.").arg(clientModel->GetDifficulty()) + QString("<br>") + tooltip;
 
     QDateTime now = QDateTime::currentDateTime();
     QDateTime lastBlockDate = clientModel->getLastBlockDate();
@@ -615,7 +674,7 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
     if(!text.isEmpty())
     {
         tooltip += QString("<br>");
-        tooltip += tr("Last received block was generated %1.").arg(text);
+        tooltip += tr("Last received acre was generated %1.").arg(text);
     }
 
     // Don't word-wrap this (fixed-width) tooltip
@@ -631,12 +690,12 @@ void BitcoinGUI::setMining(bool mining, int hashrate)
     if (mining)
     {
         labelMiningIcon->setPixmap(QIcon(":/icons/mining_active").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-        labelMiningIcon->setToolTip(tr("Dig HSCoins at %1 hashes per second").arg(hashrate));
+        labelMiningIcon->setToolTip(tr("Digging HSCoin at %1 paws per second").arg(hashrate));
     }
     else
     {
         labelMiningIcon->setPixmap(QIcon(":/icons/mining_inactive").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-        labelMiningIcon->setToolTip(tr("Not dig HSCoins"));
+        labelMiningIcon->setToolTip(tr("Not digging HSCoin"));
     }
 }
 
@@ -689,7 +748,7 @@ void BitcoinGUI::askFee(qint64 nFeeRequired, bool *payFee)
 {
     QString strMessage =
         tr("This transaction is over the size limit.  You can still send it for a fee of %1, "
-          "which goes to the nodes that process your transaction and helps to support the network.  "
+          "which goes to the tunnels that process your transaction and helps to support the network.  "
           "Do you want to pay the fee?").arg(
                 BitcoinUnits::formatWithUnit(BitcoinUnits::BTC, nFeeRequired));
     QMessageBox::StandardButton retval = QMessageBox::question(
@@ -851,7 +910,7 @@ void BitcoinGUI::dropEvent(QDropEvent *event)
         if (nValidUrisFound)
             gotoSendCoinsPage();
         else
-            notificator->notify(Notificator::Warning, tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid HSCoin address or malformed URI parameters."));
+            notificator->notify(Notificator::Warning, tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid HSCoin opening or malformed URI parameters."));
     }
 
     event->acceptProposedAction();
@@ -866,7 +925,7 @@ void BitcoinGUI::handleURI(QString strURI)
         gotoSendCoinsPage();
     }
     else
-        notificator->notify(Notificator::Warning, tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid HSCoin address or malformed URI parameters."));
+        notificator->notify(Notificator::Warning, tr("URI handling"), tr("URI can not be parsed! This can be caused by an invalid HSCoin opening or malformed URI parameters."));
 }
 
 void BitcoinGUI::setEncryptionStatus(int status)
@@ -882,7 +941,7 @@ void BitcoinGUI::setEncryptionStatus(int status)
     case WalletModel::Unlocked:
         labelEncryptionIcon->show();
         labelEncryptionIcon->setPixmap(QIcon(":/icons/lock_open").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-        labelEncryptionIcon->setToolTip(tr("Wallet is <b>encrypted</b> and currently <b>unlocked</b>"));
+        labelEncryptionIcon->setToolTip(tr("Wallet is <b>barricaded</b> and currently <b>unlocked</b>"));
         encryptWalletAction->setChecked(true);
         changePassphraseAction->setEnabled(true);
         encryptWalletAction->setEnabled(false); // TODO: decrypt currently not supported
@@ -890,7 +949,7 @@ void BitcoinGUI::setEncryptionStatus(int status)
     case WalletModel::Locked:
         labelEncryptionIcon->show();
         labelEncryptionIcon->setPixmap(QIcon(":/icons/lock_closed").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-        labelEncryptionIcon->setToolTip(tr("Wallet is <b>encrypted</b> and currently <b>locked</b>"));
+        labelEncryptionIcon->setToolTip(tr("FoxHole is <b>barricaded</b> and currently <b>locked</b>"));
         encryptWalletAction->setChecked(true);
         changePassphraseAction->setEnabled(true);
         encryptWalletAction->setEnabled(false); // TODO: decrypt currently not supported
@@ -913,10 +972,10 @@ void BitcoinGUI::encryptWallet(bool status)
 void BitcoinGUI::backupWallet()
 {
     QString saveDir = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
-    QString filename = QFileDialog::getSaveFileName(this, tr("Backup Wallet"), saveDir, tr("Wallet Data (*.dat)"));
+    QString filename = QFileDialog::getSaveFileName(this, tr("Backup FoxHole"), saveDir, tr("FoxHole Data (*.dat)"));
     if(!filename.isEmpty()) {
         if(!walletModel->backupWallet(filename)) {
-            QMessageBox::warning(this, tr("Backup Failed"), tr("There was an error trying to save the wallet data to the new location."));
+            QMessageBox::warning(this, tr("Backup Failed"), tr("There was an error trying to save the FoxHole data to the new location."));
         }
     }
 }
