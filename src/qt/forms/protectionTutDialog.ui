@@ -122,7 +122,7 @@ possible, but that isn't necassery) Enter in the same passphrase in both fields,
 
 Changing your passphrase can be done easily via the 'Reinforce Barricade' button under settings, but it requires your current passphrase.
 
-The next thing you want to do is backup your FoxHole, now this is optional. Navigate to your hscoin directory %APPDATA%/roaming for
+The next thing you want to do is backup your HSCHole, now this is optional. Navigate to your hscoin directory %APPDATA%/roaming for
 Windows, Application Support for OSX, and your /hscoin directory on *nix systems. Find your foxhole.dat and copy it to secure location.</string>
        </property>
        <property name="textInteractionFlags">

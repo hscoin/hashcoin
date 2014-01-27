@@ -262,7 +262,7 @@ bool CWallet::EncryptWallet(const SecureString& strWalletPassphrase)
         {
             if (fFileBacked)
                 pwalletdbEncryption->TxnAbort();
-            exit(1); //We now probably have half of our keys encrypted in memory, and half not...die and let the user reload their unencrypted FoxHole.
+            exit(1); //We now probably have half of our keys encrypted in memory, and half not...die and let the user reload their unencrypted HSCHole.
         }
 
         // Encryption was introduced in version 0.4.0
@@ -1261,7 +1261,7 @@ string CWallet::SendMoney(CScript scriptPubKey, int64 nValue, CWalletTx& wtxNew,
 
     if (IsLocked())
     {
-        string strError = _("Error: FoxHole locked, unable to create transaction  ");
+        string strError = _("Error: HSCHole locked, unable to create transaction  ");
         printf("SendMoney() : %s", strError.c_str());
         return strError;
     }
@@ -1280,7 +1280,7 @@ string CWallet::SendMoney(CScript scriptPubKey, int64 nValue, CWalletTx& wtxNew,
         return "ABORTED";
 
     if (!CommitTransaction(wtxNew, reservekey))
-        return _("Error: The transaction was rejected.  This might happen if some of the coins in your FoxHole were already spent, such as if you used a copy of foxhole.dat and coins were spent in the copy but not marked as spent here.");
+        return _("Error: The transaction was rejected.  This might happen if some of the coins in your HSCHole were already spent, such as if you used a copy of foxhole.dat and coins were spent in the copy but not marked as spent here.");
 
     return "";
 }

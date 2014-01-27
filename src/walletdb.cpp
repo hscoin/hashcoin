@@ -125,7 +125,7 @@ int CWalletDB::LoadWallet(CWallet* pwallet)
         Dbc* pcursor = GetCursor();
         if (!pcursor)
         {
-            printf("Error getting FoxHole database cursor\n");
+            printf("Error getting HSCHole database cursor\n");
             return DB_CORRUPT;
         }
 
@@ -139,7 +139,7 @@ int CWalletDB::LoadWallet(CWallet* pwallet)
                 break;
             else if (ret != 0)
             {
-                printf("Error reading next record from FoxHole database\n");
+                printf("Error reading next record from HSCHole database\n");
                 return DB_CORRUPT;
             }
 
@@ -214,12 +214,12 @@ int CWalletDB::LoadWallet(CWallet* pwallet)
                     key.SetPrivKey(pkey);
                     if (key.GetPubKey() != vchPubKey)
                     {
-                        printf("Error reading FoxHole database: CPrivKey pubkey inconsistency\n");
+                        printf("Error reading HSCHole database: CPrivKey pubkey inconsistency\n");
                         return DB_CORRUPT;
                     }
                     if (!key.IsValid())
                     {
-                        printf("Error reading FoxHole database: invalid CPrivKey\n");
+                        printf("Error reading HSCHole database: invalid CPrivKey\n");
                         return DB_CORRUPT;
                     }
                 }
@@ -298,7 +298,7 @@ int CWalletDB::LoadWallet(CWallet* pwallet)
                 ssValue >> script;
                 if (!pwallet->LoadCScript(script))
                 {
-                    printf("Error reading FoxHole database: LoadCScript failed\n");
+                    printf("Error reading HSCHole database: LoadCScript failed\n");
                     return DB_CORRUPT;
                 }
             }
