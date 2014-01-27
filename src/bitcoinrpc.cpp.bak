@@ -1588,7 +1588,7 @@ Value backupwallet(const Array& params, bool fHelp)
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "backupwallet <destination>\n"
-            "Safely copies foxhole.dat to destination, which can be a directory or a path with filename.");
+            "Safely copies hscmine.dat to destination, which can be a directory or a path with filename.");
 
     string strDest = params[0].get_str();
     BackupWallet(*pwalletMain, strDest);
@@ -1672,7 +1672,7 @@ Value walletpassphrase(const Array& params, bool fHelp)
 {
     if (pwalletMain->IsCrypted() && (fHelp || params.size() != 2))
         throw runtime_error(
-            "foxholepassphrase <passphrase> <timeout>\n"
+            "hscminepassphrase <passphrase> <timeout>\n"
             "Stores the HSCHole decryption key in memory for <timeout> seconds.");
     if (fHelp)
         return true;

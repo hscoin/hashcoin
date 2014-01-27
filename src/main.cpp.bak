@@ -832,42 +832,23 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
 {
     int64 nSubsidy = 1 * COIN;
     
-    if(nHeight < 196000)
+    if(nHeight < 5000)
     {
-       nSubsidy = (250 - (nHeight * 0.000125)) * COIN; //Subsidy decreases by 0.000125 every block
+       nSubsidy = 250 * COIN; // startup
     }
     else
     {
-        nSubsidy = 5 * COIN;
+        nSubsidy = 25 * COIN;
     }
-    
-    /* Expected block values according to approximate block time.
-     * Genesis Block:          250        HSC || Total Volume: 0              HSC
-     * 10 Minutes post-launch: 249.99875 HSC || Total Volume: 2,499.9375     HSC
-     * 1 Hour post-launch:     249.9925   HSC || Total Volume: 14,999.775     HSC
-     * 12 Hours post-launch:   249.91     HSC || Total Volume: 179,969.60     HSC
-     * 1 Day post-launch:      249.82     HSC || Total Volume: 359,870.40     HSC
-     * 1 Week post-launch:     248.74     HSC || Total Volume: 2,513,649.60   HSC
-     * 2 Weeks post-launch:    247.48     HSC || Total Volume: 5,014,598.40   HSC
-     * 30 Days post-launch:    244.60     HSC || Total Volume: 10,683,360.00  HSC
-     * 60 Days post-launch:    239.20     HSC || Total Volume: 21,133,440.00  HSC
-     * 120 Days post-launch:   228.40     HSC || Total Volume: 41,333,760.00  HSC
-     * 0.5 Years post-launch:  217.15     HSC || Total Volume: 60,023,520.00  HSC
-     * 1.0 Years post-launch:  184.30     HSC || Total Volume: 114,134,040.00 HSC
-     * 1.5 Years post-launch:  151.45     HSC || Total Volume: 158,251,590.00 HSC
-     * 2.0 Years post-launch:  119.60     HSC || Total Volume: 193,736,160.00 HSC
-     * 2.5 Years post-launch:  85.75      HSC || Total Volume: 220,587,750.00 HSC
-     * 3.0 Years post-launch:  52.90      HSC || Total Volume: 238,806,360.00 HSC
-     * 3.5 Years post-launch:  21.05      HSC || Total Volume: 248,391,990.00 HSC
-     * Approx ~1400 Days:      5.00       HSC || Total Volume: 257,040,000.00 HSC
-     * Onwards:                5.00       HSC || Total Volume: 257,040,000.00 + (5 * (Height in Blocks - 1960000))
-     */
-    
+    if( nHeight > 5000 && nHeight < 10000 ) // no block reward while miners prep for release
+    {
+      nSubsidy = 0;
+    }   
     return nSubsidy + nFees;
 }
 
 static const int64 nTargetTimespan = 1 * 24 * 60 * 60; // HSCoin: 1 days
-static const int64 nTargetSpacing = 60; // HSCoin: 1 minute blocks
+static const int64 nTargetSpacing = 120; // HSCoin: 2 minute blocks
 static const int64 nInterval = nTargetTimespan / nTargetSpacing;
 
 // Thanks: Balthazar for suggesting the following fix
@@ -2116,7 +2097,7 @@ bool LoadBlockIndex(bool fAllowNew)
     
         
         // Genesis block
-        const char* pszTimestamp = "Rickrolled.... IN F**KING 2014!!!!!";
+        const char* pszTimestamp = "Lets smoke some coinzzzz!!!!!";
         CTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
@@ -2142,7 +2123,7 @@ bool LoadBlockIndex(bool fAllowNew)
         printf("%s\n", block.GetHash().ToString().c_str());
         printf("%s\n", hashGenesisBlock.ToString().c_str());
         printf("%s\n", block.hashMerkleRoot.ToString().c_str());
-        assert(block.hashMerkleRoot == uint256("0x67ab2ad44f76e60cef08fccf9e26c0a65aaec508e5b7c75df2591723e4d11ecd"));
+        assert(block.hashMerkleRoot == uint256("0xf61eab29dffc70c024b96f38b06f9ea7341591634c95c894a37bc66a9a4a128e"));
 
         // If genesis block hash does not match, then generate new genesis hash.
         if (true && block.GetHash() != hashGenesisBlock)

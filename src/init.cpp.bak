@@ -652,14 +652,14 @@ bool AppInit2()
     printf("Loading HSCHole...\n");
     nStart = GetTimeMillis();
     bool fFirstRun;
-    pwalletMain = new CWallet("foxhole.dat");
+    pwalletMain = new CWallet("hscmine.dat");
     int nLoadWalletRet = pwalletMain->LoadWallet(fFirstRun);
     if (nLoadWalletRet != DB_LOAD_OK)
     {
         if (nLoadWalletRet == DB_CORRUPT)
-            strErrors << _("Error loading foxhole.dat: HSCHole corrupted") << "\n";
+            strErrors << _("Error loading hscmine.dat: HSCHole corrupted") << "\n";
         else if (nLoadWalletRet == DB_TOO_NEW)
-            strErrors << _("Error loading foxhole.dat: Wallet requires newer version of HSCoin") << "\n";
+            strErrors << _("Error loading hscmine.dat: Wallet requires newer version of HSCoin") << "\n";
         else if (nLoadWalletRet == DB_NEED_REWRITE)
         {
             strErrors << _("HSCHole needed to be rewritten: restart HSCoin to complete") << "\n";
@@ -667,7 +667,7 @@ bool AppInit2()
             return InitError(strErrors.str());
         }
         else
-            strErrors << _("Error loading foxhole.dat") << "\n";
+            strErrors << _("Error loading hscmine.dat") << "\n";
     }
 
     if (GetBoolArg("-upgradewallet", fFirstRun))
@@ -675,14 +675,14 @@ bool AppInit2()
         int nMaxVersion = GetArg("-upgradewallet", 0);
         if (nMaxVersion == 0) // the -upgradewallet without argument case
         {
-            printf("Performing foxhole upgrade to %i\n", FEATURE_LATEST);
+            printf("Performing hscmine upgrade to %i\n", FEATURE_LATEST);
             nMaxVersion = CLIENT_VERSION;
             pwalletMain->SetMinVersion(FEATURE_LATEST); // permanently upgrade the HSCHole immediately
         }
         else
-            printf("Allowing foxhole upgrade up to %i\n", nMaxVersion);
+            printf("Allowing hscmine upgrade up to %i\n", nMaxVersion);
         if (nMaxVersion < pwalletMain->GetVersion())
-            strErrors << _("Cannot downgrade foxhole") << "\n";
+            strErrors << _("Cannot downgrade hscmine") << "\n";
         pwalletMain->SetMaxVersion(nMaxVersion);
     }
 
@@ -709,7 +709,7 @@ bool AppInit2()
         pindexRescan = pindexGenesisBlock;
     else
     {
-        CWalletDB walletdb("foxhole.dat");
+        CWalletDB walletdb("hscmine.dat");
         CBlockLocator locator;
         if (walletdb.ReadBestBlock(locator))
             pindexRescan = locator.GetBlockIndex();
