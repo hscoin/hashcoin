@@ -1,9 +1,9 @@
-Building hscoin
+Building Hscoin
 
-See doc/readme-qt.rst for instructions on building hscoin-Qt,
+See doc/readme-qt.rst for instructions on building Hscoin-QT,
 the intended-for-end-users, nice-graphical-interface, reference
-implementation of hscoin.
+implementation of Hscoin.
 
 See doc/build-*.txt for instructions on building hscoind,
 the intended-for-services, no-graphical-interface, reference
-implementation of hscoin.
+implementation of Hscoin.
